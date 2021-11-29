@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_store/widgets/out_boarding_indicator.dart';
 
-import 'models/page_model.dart';
+import '../models/page_model.dart';
 
 // import 'package:flutter_svg/flutter_svg.dart';
 class OnBoarding extends StatefulWidget {
@@ -212,6 +212,7 @@ class _OnBoardingState extends State<OnBoarding> {
                     )
                   : ElevatedButton(
                       onPressed: () {
+                        Navigator.pushNamed(context, '/login');
                         // _pageController.animateToPage(pages.length,duration: Duration(seconds: 1), curve: Curves.easeInOut);
                       },
                       child: Text(
@@ -239,9 +240,10 @@ class _OnBoardingState extends State<OnBoarding> {
           top: 56.h,
           left: 40.w,
           child: Image.asset(
-            'images/logo2.png',
+            'images/logo.png',
             fit: BoxFit.cover,
           ),
+          // child: SvgPicture.asset('images/logo.svg'),
         ),
       ]),
     );
@@ -271,7 +273,7 @@ class _OnBoardingState extends State<OnBoarding> {
 
 // Positioned(width: 82.w,height: 82.h,top: 56.h,left: 40.w,
 // child: Image.asset(
-// 'images/logo2.png',
+// 'images/logo.png',
 // fit: BoxFit.cover,
 // ),
 // ),

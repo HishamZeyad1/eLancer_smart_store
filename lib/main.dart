@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smart_store/on_boarding.dart';
-
-import 'OutBoardingScreen.dart';
+import 'package:smart_store/screens/login.dart';
+import 'package:smart_store/screens/on_boarding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,12 +16,12 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(414, 896),
       builder: () =>MaterialApp(
-        title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: OnBoarding(),
+        initialRoute: '/login',
+        routes:{
+          "/on_boarding":(Context)=>OnBoarding(),
+          "/login":(Context)=>Login(),
+        } ,
       ),
     );
   }
