@@ -20,6 +20,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: TextStyle(color: Color.fromRGBO(151, 151, 151, 1),fontSize: 13,fontWeight: FontWeight.w500),
       keyboardType: keyboardType,
       obscureText: obsure,
       controller: controller,

@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,6 +16,23 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  late TapGestureRecognizer _recognizer;
+  @override
+  void initState() {
+    // TODO: implement initState
+    _recognizer=TapGestureRecognizer();
+    _recognizer.onTap=nivgateToRegister;
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _recognizer.dispose();
+    super.dispose();
+  }
+  void nivgateToRegister(){
+    Navigator.pushNamed(context, '/register');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,7 +140,7 @@ class _LoginState extends State<Login> {
                 ),
                 Column(
                   children: [
-                    LabelTextField("Email"),
+                    LabelTextField("Phone Number"),
                     SizedBox(
                       height: 12.h,
                     ),
@@ -152,7 +170,7 @@ class _LoginState extends State<Login> {
                         child: Text(
                           "Forgot your password?",
                           style:
-                              TextStyle(fontSize:12.sp,fontWeight:FontWeight.w500,color: Color.fromRGBO(229, 69, 0, 0.81)),
+                              TextStyle(fontSize:12,fontWeight:FontWeight.w500,color: Color.fromRGBO(229, 69, 0, 0.81)),
                         ),
                       ),
                       onTap: () => print("object"),
@@ -179,7 +197,7 @@ class _LoginState extends State<Login> {
                             fontStyle: FontStyle.normal,
                             // fontWeight: FontWeight.w700,
                             fontFamily: 'Poppins',
-                            fontSize: 14.sp,
+                            fontSize: 12,
                             color: Color.fromRGBO(49, 49, 49, 1)),
                         children: [
                           TextSpan(
@@ -188,6 +206,7 @@ class _LoginState extends State<Login> {
                           // TextSpan(text: '   of '),
                           TextSpan(
                               text: "Register" /*'CHOICES'*/,
+                              recognizer:_recognizer ,
                               style: TextStyle(
                                   color: Color.fromRGBO(229, 69, 0, 0.81))),
                         ],

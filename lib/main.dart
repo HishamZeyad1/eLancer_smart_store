@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_store/screens/login.dart';
 import 'package:smart_store/screens/on_boarding.dart';
+import 'package:smart_store/screens/register.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,11 +18,12 @@ class MyApp extends StatelessWidget {
       designSize: Size(414, 896),
       builder: () =>MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/login',
+        initialRoute: '/register',
         routes:{
           "/on_boarding":(Context)=>OnBoarding(),
           "/login":(Context)=>Login(),
-        } ,
+          "/register":(Context)=>Register(),
+      } ,
       ),
     );
   }

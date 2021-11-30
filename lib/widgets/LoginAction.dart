@@ -5,8 +5,9 @@ import 'package:flutter_svg/svg.dart';
 class LoginAction extends StatelessWidget {
   late String image;
   late String title;
+  late double height;
 
-  LoginAction({required this.image,required  this.title});
+  LoginAction({required this.image,required  this.title,this.height=20});
 
   @override
   Widget build(BuildContext context) {
