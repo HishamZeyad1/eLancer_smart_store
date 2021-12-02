@@ -3,17 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LabelTextField extends StatelessWidget {
   late String title;
+  late Color? color;
+  late TextAlign? textAlign;
+  late double width;
 
-  LabelTextField(this.title);
+  LabelTextField(this.title,{this.color=const Color.fromRGBO(151, 151, 151, 1),this.textAlign=TextAlign.start,this.width=double.infinity});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: double.infinity,
-        height: 20.h,
+        width: width,
+        // height: 20,
         child: Text(
-          title,
-          style: TextStyle(color: Color.fromRGBO(151, 151, 151, 1),fontSize: 14,fontWeight: FontWeight.w700),
+          title,textAlign:textAlign,
+        style: TextStyle(color: color,fontSize: 14,fontWeight: FontWeight.w700),
         ));
   }
 }
