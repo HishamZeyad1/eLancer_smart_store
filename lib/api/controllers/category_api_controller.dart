@@ -62,13 +62,16 @@ class CategoryApiController{
 
     if (response.statusCode == 200) {
       var dataJson = jsonDecode(response.body)['list'] as List;
+      print("============products=============");
+      print("${dataJson}");
+
       return dataJson
           .map((jsonObject) => Product.fromJson(jsonObject)).toList();
     }
     return [];
   }
   Future<ProductDetails?> productDetails(String id) async {
-    print("================================");
+    print("===========productDetails=========");
     var url = Uri.parse(ApiSettings.productDetails+id);
     var response = await http.get(url, headers: {
       HttpHeaders.authorizationHeader: SharedPrefController().token,
@@ -78,11 +81,18 @@ class CategoryApiController{
     print(response.body);
 
     if (response.statusCode == 200) {
-      var dataJson = jsonDecode(response.body)['object'];
+      var dataJson = jsonDecode(response.body)['object'] ;
       print("=====================dataJson====================");
       print(dataJson);
       print("=====ProductDetails.fromJson(dataJson)=========");
-      print(ProductDetails.fromJson(dataJson));
+      // print(ProductDetails.fromJson(dataJson));
+      // ProductDetails p=ProductDetails.fromJson(dataJson);
+      // print(p.id);
+      try{
+        print("Check Error");
+        ProductDetails productDetails=ProductDetails.fromJson(dataJson);
+      }catch(Exception){print(Exception.toString());}
+
       return ProductDetails.fromJson(dataJson);
     }
     return null;

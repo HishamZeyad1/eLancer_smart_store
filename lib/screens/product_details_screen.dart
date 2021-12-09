@@ -19,7 +19,7 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   late TapGestureRecognizer _recognizer;
   late Future<ProductDetails?> _future;
-  late ProductDetails productsDetails = ProductDetails();
+  late ProductDetails? productsDetails = null;
 
   @override
   void initState() {
@@ -72,15 +72,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             builder: (context, snapshot) {
               print("===============snapshot.data========================");
               // print(snapshot.data!);
-              // print(snapshot.hasData && snapshot.data! !=null);
+              print(snapshot.hasData /*&& snapshot.data! !=null*/);
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Container(
                     width: double.infinity,
                     height: 600.h,
                     child: CircularProgressIndicator());
-              } 
+              }
               else if (snapshot.hasData && snapshot.data! != null) {
                 productsDetails = snapshot.data!;
+                print("productsDetails:${productsDetails}");
                 return ListView(
                   children: [
                     Container(
@@ -101,7 +102,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             //   'images/jacket.jpeg',
                             // ),
                             image: NetworkImage(
-                                productsDetails.imageUrl
+                                productsDetails!.imageUrl
                             ),
                             fit: BoxFit.cover),
                       ),
@@ -117,13 +118,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           children: [
                             Text(
                               // 'Chequered overshirt',
-                              productsDetails.nameEn,
+                              productsDetails!.nameEn,
                               style: TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600),
                             ),
                             Text(
                               // '\$30',
-                              '\$'+productsDetails.price.toString(),
+                              '\$'+productsDetails!.price.toString(),
                               style: TextStyle(
                                   fontSize: 32.sp,
                                   fontWeight: FontWeight.w600,
@@ -148,7 +149,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   ),
                                   Text(
                                     // "4.9
-                                    productsDetails.overalRate.toString(),
+                                    productsDetails!.overalRate.toString(),
 
                                     style: TextStyle(
                                         fontSize: 14.sp,
@@ -283,7 +284,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             children: <TextSpan>[
                               TextSpan(
                                 text:
-                                  productsDetails.infoEn,
+                                  productsDetails!.infoEn,
                                     // "hequered overshirt with snap-button fastening, front pockets and long sleeves....",
                               ),
                               // TextSpan(
@@ -321,10 +322,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ],
                 );
               } else {
-                return Container(
-                    width: double.infinity,
-                    height: 600.h,
-                    child: Text("No Data"));
+                return Center(
+                  child: Container(
+                      width: double.infinity,
+                      height: 600.h,
+                      child: Text("No Data")),
+                );
               }
             }),
       ),

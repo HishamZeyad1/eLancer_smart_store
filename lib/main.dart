@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_store/api/controllers/favorite_api_controller.dart';
 import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/screens/Auth/forget_password.dart';
 import 'package:smart_store/screens/category_screen.dart';
+import 'package:smart_store/screens/launch_screen.dart';
 import 'package:smart_store/screens/main_screen.dart';
 import 'package:smart_store/screens/product_details_screen.dart';
 import 'package:smart_store/screens/main_index_widget/home_widget.dart';
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
       designSize: Size(414, 896),
       builder: () =>MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/main_screen',
+        initialRoute: '/launch_screen',
         routes:{
           "/on_boarding":(Context)=>const OnBoarding(),
           "/login":(Context)=>const Login(),
@@ -43,7 +45,9 @@ class MyApp extends StatelessWidget {
           // "/sub_category_screen":(Context)=>const SubCategoryScreen(),
           // "/product_screen":(Context)=>const ProductScreen(),
           // "/product_details_screen":(Context)=> ProductDetailsScreen(),
-          "/main_screen":(Context)=> MainScreen(),
+          "/launch_screen":(Context)=> LaunchScreen(),
+          "/main_screen":(context)=>MainScreen(),
+
         } ,
       ),
     );

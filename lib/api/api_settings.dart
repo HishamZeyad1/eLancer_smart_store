@@ -20,4 +20,9 @@ static const subCategories = _apiUrl + 'categories/';
 static const products = _apiUrl + 'sub-categories/';
 static const productDetails = _apiUrl + 'products/';
 
+
+static const favorite = _apiUrl + 'favorite-products';
+
+static const rating = _apiUrl + 'products/rate';
+
 }

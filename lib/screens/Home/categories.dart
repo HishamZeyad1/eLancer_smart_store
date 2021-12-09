@@ -53,6 +53,8 @@ class _CategoriesState extends State<Categories> {
           child: Container(
             width: 50.w,
             height: 50.h,
+            padding: EdgeInsets.only(bottom: 5.h, left: 5.w),
+
             // color: Colors.red,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.white, width: 1),
@@ -63,6 +65,21 @@ class _CategoriesState extends State<Categories> {
                     // 'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
                   ),
                   fit: BoxFit.cover),
+            ),
+            child: Container(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                // "Tops",
+                // categories[index].nameEn,
+                type==1?categories[index].nameEn:products[index].nameEn,
+
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  color: Colors.orange.shade900,
+                  fontWeight: FontWeight.w600,
+                ),
+                // textAlign: TextAlign.justify,
+              ),
             ),
           ),
           onTap: () =>type==1?Navigator.push(context, MaterialPageRoute(builder: (context) => SubCategoryScreen(categories[index].id),)):Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(products[index].id),)),

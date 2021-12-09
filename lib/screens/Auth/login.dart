@@ -257,6 +257,6 @@ class _LoginState extends State<Login> with Helpers{
 
   Future<void> login() async {
     bool status = await AuthApiController().login(context, phoneNumber: _PhoneTextController.text, password: _passwordTextController.text);
-    if (status) Navigator.pushReplacementNamed(context, '/home');
+    if (status) Navigator.pushReplacementNamed(context, '/main_screen');
   }
 }

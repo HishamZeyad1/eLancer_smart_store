@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:smart_store/api/controllers/auth_api_controller.dart';
 import 'package:smart_store/api/controllers/home_api_controller.dart';
+import 'package:smart_store/get/favorite_getx_controller.dart';
 import 'package:smart_store/models/category.dart';
 import 'package:smart_store/models/category_type.dart';
 import 'package:smart_store/models/home.dart';
@@ -50,6 +52,8 @@ class _MainScreenState extends State<MainScreen> {
     _categoriesType.add(CategoryType(id: 3, name: "Kid"));
     _categoriesType.add(CategoryType(id: 4, name: "Home"));
   }
+  final FavoriteGetxController controller =
+  Get.put<FavoriteGetxController>(FavoriteGetxController());
 
   @override
   void initState() {

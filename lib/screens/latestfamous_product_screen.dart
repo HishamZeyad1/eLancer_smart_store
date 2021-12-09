@@ -91,7 +91,9 @@ class _LatestFamousProductScreenState extends State<LatestFamousProductScreen> {
                   products[index].nameEn,
                   style: TextStyle(
                     fontSize: 18.sp,
-                    color: Colors.white,
+                    // color: Colors.white,
+                    color: Colors.orange.shade900,
+
                     fontWeight: FontWeight.w600,
                   ),
                   // textAlign: TextAlign.justify,

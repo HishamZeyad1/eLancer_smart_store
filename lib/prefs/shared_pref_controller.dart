@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_store/models/user.dart';
 
-enum PrefKeys { loggedIn, fullName, email, gender, token }
+enum PrefKeys {id, loggedIn, fullName, email, gender, token }
 
 class SharedPrefController {
   static final SharedPrefController _instance = SharedPrefController._();
@@ -19,6 +19,7 @@ class SharedPrefController {
   }
 
   Future<void> save({required User user}) async {
+    await _sharedPreferences.setInt(PrefKeys.id.toString(), user.id);
     await _sharedPreferences.setBool(PrefKeys.loggedIn.toString(), true);
     await _sharedPreferences.setString(
         PrefKeys.fullName.toString(), user.name);
@@ -32,6 +33,8 @@ class SharedPrefController {
 
   bool get loggedIn =>
       _sharedPreferences.getBool(PrefKeys.loggedIn.toString()) ?? false;
+  int get id =>
+      _sharedPreferences.getInt(PrefKeys.id.toString()) ??0;
 
   String get token =>
       _sharedPreferences.getString(PrefKeys.token.toString()) ?? '';

@@ -9,15 +9,15 @@ class ProductDetails {
   late String infoAr;
   late int price;
   late int quantity;
-  late int overalRate;
+  late int overalRate;//
   late int subCategoryId;
   late int productRate;
-  late double? offerPrice;
+  late int? offerPrice;//
   late bool isFavorite;
   late String imageUrl;
   late List<Image> images;
   late SubCategory subCategory;
-  ProductDetails();
+  // ProductDetails(){}
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
