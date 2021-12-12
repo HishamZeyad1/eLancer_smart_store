@@ -78,42 +78,42 @@ class _HomeWidgetState extends State<HomeWidget>with Helpers{
                 padding:
                 EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Colors.deepOrange,
-                            ),
-                            hintText: 'Search',
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 16.h, horizontal: 20.w),
-                            border: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: Colors.white, width: 2),
-                                borderRadius: BorderRadius.circular(15)),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12.w,
-                      ),
-                      Container(
-                          child: Icon(
-                            Icons.filter_list_rounded,
-                            color: Colors.deepOrange,
-                            size: 40.sp,
-                          ),
-                          decoration: BoxDecoration(
-                            //color: Colors.red,
-                              border:
-                              Border.all(width: 2, color: Colors.white))),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: TextField(
+                  //         decoration: InputDecoration(
+                  //           prefixIcon: Icon(
+                  //             Icons.search,
+                  //             color: Colors.deepOrange,
+                  //           ),
+                  //           hintText: 'Search',
+                  //           contentPadding: EdgeInsets.symmetric(
+                  //               vertical: 16.h, horizontal: 20.w),
+                  //           border: OutlineInputBorder(
+                  //               borderSide:
+                  //               BorderSide(color: Colors.white, width: 2),
+                  //               borderRadius: BorderRadius.circular(15)),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 12.w,
+                  //     ),
+                  //     Container(
+                  //         child: Icon(
+                  //           Icons.filter_list_rounded,
+                  //           color: Colors.deepOrange,
+                  //           size: 40.sp,
+                  //         ),
+                  //         decoration: BoxDecoration(
+                  //           //color: Colors.red,
+                  //             border:
+                  //             Border.all(width: 2, color: Colors.white))),
+                  //   ],
+                  // ),
                   SizedBox(
-                    height: 24.h,
+                    height: 12.h,
                   ),
                   // Container(
                   //     width: double.infinity,
@@ -127,7 +127,7 @@ class _HomeWidgetState extends State<HomeWidget>with Helpers{
                       // }
                       // else if (snapshot.hasData && snapshot.data! != null) {
                       //return
-                      sliders!=<Sliders>[]?imageSlider(sliders):NoData(context),
+                      sliders!=<Sliders>[]?imageSlider(sliders,scale:2 ,):NoData(context),
                       // Center(child: Container(child: Text("No Data"),)),
 
                       // }

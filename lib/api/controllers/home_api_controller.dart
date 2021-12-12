@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/home.dart';
 import 'package:smart_store/prefs/shared_pref_controller.dart';
@@ -21,7 +22,8 @@ class HomeApiController with Helpers {
     var url = Uri.parse(ApiSettings.home);
     var response = await http.get(url, headers: {
       HttpHeaders.authorizationHeader: SharedPrefController().token,
-      HttpHeaders.acceptHeader: 'application/json'
+      HttpHeaders.acceptHeader: 'application/json',
+      HttpHeaders.acceptLanguageHeader:SharedPrefController().language
     });
     print(response.statusCode);
     print(response.body);

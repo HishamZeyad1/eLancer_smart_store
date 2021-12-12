@@ -1,6 +1,7 @@
 // import 'package:daily_expense/helpers/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_store/prefs/shared_pref_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class LaunchScreen extends StatefulWidget {
@@ -37,8 +38,8 @@ class _LaunchScreenState extends State<LaunchScreen> {
           ),
         ),
         child: Text(
-          "Smart Store",
-          // AppLocalizations.of(context)!.introduction,
+          // "Smart Store",
+          AppLocalizations.of(context)!.introduction,
 
           style: TextStyle(
             fontSize: 24,

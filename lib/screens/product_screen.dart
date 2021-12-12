@@ -9,6 +9,7 @@ import 'package:smart_store/api/controllers/category_api_controller.dart';
 import 'package:smart_store/api/controllers/favorite_api_controller.dart';
 import 'package:smart_store/api/controllers/rate_api_controller.dart';
 import 'package:smart_store/get/favorite_getx_controller.dart';
+import 'package:smart_store/get/product_getx_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/base_api.dart';
 import 'package:smart_store/models/product.dart';
@@ -28,16 +29,21 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> with Helpers {
   int _currentIndex = 0;
   late Future<List<Product>> _future;
-  late List<Product> products = [];
-  late bool isFavorite;
-
+  // late List<Product> products = [];
+  // late bool isFavorite;
+  // late List<Product> products = [];
+  late bool isFavorite = true;
+  late ProductGetxController productcontroller;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _future = CategoryApiController().products(widget.id.toString());
     isFavorite = false;
+    productcontroller =Get.put<ProductGetxController>(ProductGetxController(widget.id.toString()));
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -241,387 +247,788 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
               SizedBox(
                 height: 12.h,
               ),
-              FutureBuilder<List<Product>>(
-                  future: _future,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Container(
-                          width: double.infinity,
-                          height: 600.h,
-                          child: CircularProgressIndicator());
-                    } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                      products = snapshot.data ?? [];
-                      return GridView.builder(
-                          itemCount: products.length,
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 8, //16,
-                            crossAxisSpacing: 8, //16,
-                            childAspectRatio: .75, //190 / 175,
-                          ),
-                          itemBuilder: (context, index) {
-                            isFavorite = products[index].isFavorite;
-                            print("============isFavorite================");
-                            print("isFavorite:$isFavorite");
-                            return GestureDetector(
-                                child: Stack(children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.white, width: 4),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
+              GetX<ProductGetxController>(
+                // child:
+                builder: (controller) {
+                  if (controller.loading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                  } else if (controller.products.isNotEmpty) {
+                  return GridView.builder(
+                      itemCount: controller.products.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                      SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 8, //16,
+                        crossAxisSpacing: 8, //16,
+                        childAspectRatio: .75, //190 / 175,
+                      ),
+                      itemBuilder: (context, index) {
+                        print("===========products[index].isFavorite===========");
+                        print("before: $isFavorite");
+                        isFavorite = controller.products[index].isFavorite;//products[index].isFavorite;
+                        print("============isFavorite================");
+                        print("after:$isFavorite");
+                        return GestureDetector(
+                            child: Stack(children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.white, width: 4),
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      // color: Colors.red,
+                                      // clipBehavior:Clip.antiAlias,
+                                      // padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+                                      // padding: EdgeInsets.only(top: 12.h, right: 20.w),width: 5,height: 5,
+                                      height: 195.h,
+                                      decoration: BoxDecoration(
+                                        // border: Border.all(color: Colors.white, width: 4),
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(10)),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                controller.products[index].imageUrl
+                                              // products[index].imageUrl,
+                                              // 'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+                                            ),
+                                            fit: BoxFit.cover),
+                                      ),
                                     ),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          // color: Colors.red,
-                                          // clipBehavior:Clip.antiAlias,
-                                          // padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
-                                          // padding: EdgeInsets.only(top: 12.h, right: 20.w),width: 5,height: 5,
-                                          height: 195.h,
-                                          decoration: BoxDecoration(
-                                            // border: Border.all(color: Colors.white, width: 4),
-                                            borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(10)),
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                  products[index].imageUrl,
-                                                  // 'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-                                                ),
-                                                fit: BoxFit.cover),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8.w),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 4.h,
                                           ),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 8.w),
-                                          child: Column(
+                                          Text(
+                                            controller.products[index].nameEn,
+                                            // products[index].nameEn,
+                                            textAlign: TextAlign.start,
+                                            // "Strappy top with lace trim detail",
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    49, 49, 49, 1),
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16.sp),
+                                          ),
+                                          SizedBox(
+                                            height: 14.h,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
                                             children: [
-                                              SizedBox(
-                                                height: 4.h,
-                                              ),
                                               Text(
-                                                products[index].nameEn,
-                                                textAlign: TextAlign.start,
-                                                // "Strappy top with lace trim detail",
+                                                // '\$20',
+                                                '\$' +
+                                                    // products[index].price.toString(),
+                                          controller.products[index].price.toString(),
+
+
                                                 style: TextStyle(
                                                     color: Color.fromRGBO(
-                                                        49, 49, 49, 1),
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 16.sp),
+                                                        229, 69, 0, 0.81),
+                                                    fontWeight:
+                                                    FontWeight.w600,
+                                                    fontSize: 22.sp),
                                               ),
-                                              SizedBox(
-                                                height: 14.h,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    // '\$20',
-                                                    '\$' +
-                                                        products[index]
-                                                            .price
-                                                            .toString(),
-                                                    style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            229, 69, 0, 0.81),
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 22.sp),
-                                                  ),
-                                                  // Row(
-                                                  //   children: [
-                                                  //     CircleAvatar(
-                                                  //       radius: 7,
-                                                  //       backgroundColor: Colors.red,
-                                                  //     ),
-                                                  //     SizedBox(
-                                                  //       width: 3.w,
-                                                  //     ),
-                                                  //     CircleAvatar(
-                                                  //       radius: 7,
-                                                  //       backgroundColor: Colors
-                                                  //           .grey,
-                                                  //     ),
-                                                  //     SizedBox(
-                                                  //       width: 3.w,
-                                                  //     ),
-                                                  //     CircleAvatar(
-                                                  //       radius: 7,
-                                                  //       backgroundColor: Colors
-                                                  //           .green,
-                                                  //     ),
-                                                  //     SizedBox(
-                                                  //       width: 3.w,
-                                                  //     ),
-                                                  //     CircleAvatar(
-                                                  //       radius: 7,
-                                                  //       backgroundColor: Colors
-                                                  //           .blue,
-                                                  //     ),
-                                                  //   ],
-                                                  // )
-                                                  RatingBar.builder(
-                                                    initialRating: products[index].productRate+0.0,
-                                                    minRating: 0,
-                                                    direction: Axis.horizontal,
-                                                    allowHalfRating: true,
-                                                    itemCount: 5,
-                                                    itemSize: 20.sp,
-                                                    itemPadding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 1),
-                                                    itemBuilder: (context, _) =>
-                                                        Icon(
+                                              // Row(
+                                              //   children: [
+                                              //     CircleAvatar(
+                                              //       radius: 7,
+                                              //       backgroundColor: Colors.red,
+                                              //     ),
+                                              //     SizedBox(
+                                              //       width: 3.w,
+                                              //     ),
+                                              //     CircleAvatar(
+                                              //       radius: 7,
+                                              //       backgroundColor: Colors
+                                              //           .grey,
+                                              //     ),
+                                              //     SizedBox(
+                                              //       width: 3.w,
+                                              //     ),
+                                              //     CircleAvatar(
+                                              //       radius: 7,
+                                              //       backgroundColor: Colors
+                                              //           .green,
+                                              //     ),
+                                              //     SizedBox(
+                                              //       width: 3.w,
+                                              //     ),
+                                              //     CircleAvatar(
+                                              //       radius: 7,
+                                              //       backgroundColor: Colors
+                                              //           .blue,
+                                              //     ),
+                                              //   ],
+                                              // )
+                                              RatingBar.builder(
+                                                initialRating:controller.products[index].productRate, //products[index].productRate+0.0,
+                                                minRating: 0,
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: true,
+                                                itemCount: 5,
+                                                itemSize: 20.sp,
+                                                itemPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 1),
+                                                itemBuilder: (context, _) =>
+                                                    Icon(
                                                       Icons.star,
                                                       color: Colors.amber,
                                                     ),
-                                                    onRatingUpdate: (rating) async{
-                                                      await rateProduct(products[index].id, rating);
-                                                      setState(() {});
-                                                    },
-                                                  ),
-                                                  // Row(
-                                                  //   children: [
-                                                  //     Icon(
-                                                  //       Icons.star,
-                                                  //       color: Colors.grey,
-                                                  //       size: 18,
-                                                  //     ),
-                                                  //     SizedBox(
-                                                  //       width: 0.8.w,
-                                                  //     ),
-                                                  //     Icon(
-                                                  //       Icons.star,
-                                                  //       color: Colors.grey,
-                                                  //       size: 18.w,
-                                                  //     ),
-                                                  //     SizedBox(
-                                                  //       width: 0.8.w,
-                                                  //     ),
-                                                  //     Icon(
-                                                  //       Icons.star,
-                                                  //       color: Colors.grey,
-                                                  //       size: 18,
-                                                  //     ),
-                                                  //     SizedBox(
-                                                  //       width: 0.8.w,
-                                                  //     ),
-                                                  //     Icon(
-                                                  //       Icons.star,
-                                                  //       color: Colors.grey,
-                                                  //       size: 18,
-                                                  //     ),
-                                                  //     SizedBox(
-                                                  //       width: 0.8.w,
-                                                  //     ),
-                                                  //     Icon(
-                                                  //       Icons.star,
-                                                  //       color: Colors.grey,
-                                                  //       size: 18,
-                                                  //     ),
-                                                  //     SizedBox(
-                                                  //       width: 0.8.w,
-                                                  //     ),
-                                                  //   ],
-                                                  // ),
-                                                ],
-                                              )
+                                                onRatingUpdate: (rating) async{
+                                                  await rateProduct(controller.products[index].id/*products[index].id*/, rating);
+                                                  setState(() {});
+                                                },
+                                              ),
+                                              // Row(
+                                              //   children: [
+                                              //     Icon(
+                                              //       Icons.star,
+                                              //       color: Colors.grey,
+                                              //       size: 18,
+                                              //     ),
+                                              //     SizedBox(
+                                              //       width: 0.8.w,
+                                              //     ),
+                                              //     Icon(
+                                              //       Icons.star,
+                                              //       color: Colors.grey,
+                                              //       size: 18.w,
+                                              //     ),
+                                              //     SizedBox(
+                                              //       width: 0.8.w,
+                                              //     ),
+                                              //     Icon(
+                                              //       Icons.star,
+                                              //       color: Colors.grey,
+                                              //       size: 18,
+                                              //     ),
+                                              //     SizedBox(
+                                              //       width: 0.8.w,
+                                              //     ),
+                                              //     Icon(
+                                              //       Icons.star,
+                                              //       color: Colors.grey,
+                                              //       size: 18,
+                                              //     ),
+                                              //     SizedBox(
+                                              //       width: 0.8.w,
+                                              //     ),
+                                              //     Icon(
+                                              //       Icons.star,
+                                              //       color: Colors.grey,
+                                              //       size: 18,
+                                              //     ),
+                                              //     SizedBox(
+                                              //       width: 0.8.w,
+                                              //     ),
+                                              //   ],
+                                              // ),
                                             ],
-                                          ),
-                                        ),
-                                      ],
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    child: Container(
-                                      width: 40.w,
-                                      height: 40.h,
-                                      padding: EdgeInsets.all(0),
-                                      // alignment: Alignment.center,
-                                      color: Colors.white,
-                                      child: IconButton(
-                                          alignment: Alignment.center,
-                                          onPressed: () async {
-                                            await changeFavorite(products[index]);
-                                            setState(() {
-                                              //   isFavorite=!isFavorite;
-                                            });
-                                          },
-                                          icon: isFavorite
-                                              ? Icon(
-                                                  Icons.favorite,
-                                                  color: Colors.red,
-                                                )
-                                              : Icon(Icons.favorite_outline)),
-                                    ),
-                                    top: 2.h,
-                                    right: 2.w,
-                                  )
-                                ]),
-                                onTap: () {
-                                  print("beforesetState");
-                                  print(isFavorite);
-                                  print("product: ${products[index].id}");
-                                  // setState(() {
-                                  //   isFavorite=!isFavorite;
-                                  //   print("After setState:$isFavorite");
-                                  // });
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ProductDetailsScreen(
-                                                products[index].id),
-                                      ));
-                                });
-                          }
-                          // children: [
-                          //
-                          //   // Container(
-                          //   //   // color: Colors.red,
-                          //   //   // clipBehavior:Clip.antiAlias,
-                          //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
-                          //   //   decoration: BoxDecoration(
-                          //   //     border: Border.all(color: Colors.white, width: 4),
-                          //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
-                          //   //     image: DecorationImage(
-                          //   //         image: NetworkImage(
-                          //   //             'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'),
-                          //   //         fit: BoxFit.cover),
-                          //   //   ),
-                          //   //   child: Container(
-                          //   //     alignment: Alignment.bottomLeft,
-                          //   //     child: Text(
-                          //   //       "Jacket",
-                          //   //       style: TextStyle(
-                          //   //         fontSize: 18.sp,
-                          //   //         color: Colors.white,
-                          //   //         fontWeight: FontWeight.w600,
-                          //   //       ),
-                          //   //       // textAlign: TextAlign.justify,
-                          //   //     ),
-                          //   //   ),
-                          //   // ),
-                          //   // Container(
-                          //   //   // color: Colors.red,
-                          //   //   // clipBehavior:Clip.antiAlias,
-                          //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
-                          //   //   decoration: BoxDecoration(
-                          //   //     border: Border.all(color: Colors.white, width: 4),
-                          //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
-                          //   //     image: DecorationImage(
-                          //   //         image: NetworkImage(
-                          //   //           'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-                          //   //         ),
-                          //   //         fit: BoxFit.cover),
-                          //   //   ),
-                          //   //   child: Container(
-                          //   //     alignment: Alignment.bottomLeft,
-                          //   //     child: Text(
-                          //   //       "Tops",
-                          //   //       style: TextStyle(
-                          //   //         fontSize: 18.sp,
-                          //   //         color: Colors.white,
-                          //   //         fontWeight: FontWeight.w600,
-                          //   //       ),
-                          //   //       // textAlign: TextAlign.justify,
-                          //   //     ),
-                          //   //   ),
-                          //   // ),
-                          //   // Container(
-                          //   //   // color: Colors.red,
-                          //   //   // clipBehavior:Clip.antiAlias,
-                          //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
-                          //   //   decoration: BoxDecoration(
-                          //   //     border: Border.all(color: Colors.white, width: 4),
-                          //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
-                          //   //     image: DecorationImage(
-                          //   //         image: NetworkImage(
-                          //   //             'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'),
-                          //   //         fit: BoxFit.cover),
-                          //   //   ),
-                          //   //   child: Container(
-                          //   //     alignment: Alignment.bottomLeft,
-                          //   //     child: Text(
-                          //   //       "Jacket",
-                          //   //       style: TextStyle(
-                          //   //         fontSize: 18.sp,
-                          //   //         color: Colors.white,
-                          //   //         fontWeight: FontWeight.w600,
-                          //   //       ),
-                          //   //       // textAlign: TextAlign.justify,
-                          //   //     ),
-                          //   //   ),
-                          //   // ),
-                          //   // Container(
-                          //   //   // color: Colors.red,
-                          //   //   // clipBehavior:Clip.antiAlias,
-                          //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
-                          //   //   decoration: BoxDecoration(
-                          //   //     border: Border.all(color: Colors.white, width: 4),
-                          //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
-                          //   //     image: DecorationImage(
-                          //   //         image: NetworkImage(
-                          //   //           'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-                          //   //         ),
-                          //   //         fit: BoxFit.cover),
-                          //   //   ),
-                          //   //   child: Container(
-                          //   //     alignment: Alignment.bottomLeft,
-                          //   //     child: Text(
-                          //   //       "Tops",
-                          //   //       style: TextStyle(
-                          //   //         fontSize: 18.sp,
-                          //   //         color: Colors.white,
-                          //   //         fontWeight: FontWeight.w600,
-                          //   //       ),
-                          //   //       // textAlign: TextAlign.justify,
-                          //   //     ),
-                          //   //   ),
-                          //   // ),
-                          //   // Container(
-                          //   //   // color: Colors.red,
-                          //   //   // clipBehavior:Clip.antiAlias,
-                          //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
-                          //   //   decoration: BoxDecoration(
-                          //   //     border: Border.all(color: Colors.white, width: 4),
-                          //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
-                          //   //     image: DecorationImage(
-                          //   //         image: NetworkImage(
-                          //   //             'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'),
-                          //   //         fit: BoxFit.cover),
-                          //   //   ),
-                          //   //   child: Container(
-                          //   //     alignment: Alignment.bottomLeft,
-                          //   //     child: Text(
-                          //   //       "Jacket",
-                          //   //       style: TextStyle(
-                          //   //         fontSize: 18.sp,
-                          //   //         color: Colors.white,
-                          //   //         fontWeight: FontWeight.w600,
-                          //   //       ),
-                          //   //       // textAlign: TextAlign.justify,
-                          //   //     ),
-                          //   //   ),
-                          //   // ),
-                          // ]),
-                          // SizedBox(
-                          //   height: 24.h,
-                          // ),
-                          );
-                    } else {
-                      return Container(
-                          width: double.infinity,
-                          height: 600.h,
-                          child: Text("No Data"));
-                    }
-                  }),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                child: Container(
+                                  width: 40.w,
+                                  height: 40.h,
+                                  padding: EdgeInsets.all(0),
+                                  // alignment: Alignment.center,
+                                  color: Colors.white,
+                                  child: IconButton(
+                                      alignment: Alignment.center,
+                                      onPressed: () async {
+                                        await changeFavorite(controller.products[index]/*products[index]*/);
+                                        setState(() {
+                                          //   isFavorite=!isFavorite;
+                                        });
+                                      },
+                                      icon: isFavorite
+                                          ? Icon(
+                                        Icons.favorite,
+                                        color: Colors.red,
+                                      )
+                                          : Icon(Icons.favorite_outline)),
+                                ),
+                                top: 2.h,
+                                right: 2.w,
+                              )
+                            ]),
+                            onTap: () {
+                              print("beforesetState");
+                              print(isFavorite);
+                              // print("product: ${products[index].id}");
+                              // setState(() {
+                              //   isFavorite=!isFavorite;
+                              //   print("After setState:$isFavorite");
+                              // });
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProductDetailsScreen(controller.products[index].id
+                                           /* products[index].id*/),
+                                  ));
+                            });
+                      }
+                    // children: [
+                    //
+                    //   // Container(
+                    //   //   // color: Colors.red,
+                    //   //   // clipBehavior:Clip.antiAlias,
+                    //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+                    //   //   decoration: BoxDecoration(
+                    //   //     border: Border.all(color: Colors.white, width: 4),
+                    //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
+                    //   //     image: DecorationImage(
+                    //   //         image: NetworkImage(
+                    //   //             'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'),
+                    //   //         fit: BoxFit.cover),
+                    //   //   ),
+                    //   //   child: Container(
+                    //   //     alignment: Alignment.bottomLeft,
+                    //   //     child: Text(
+                    //   //       "Jacket",
+                    //   //       style: TextStyle(
+                    //   //         fontSize: 18.sp,
+                    //   //         color: Colors.white,
+                    //   //         fontWeight: FontWeight.w600,
+                    //   //       ),
+                    //   //       // textAlign: TextAlign.justify,
+                    //   //     ),
+                    //   //   ),
+                    //   // ),
+                    //   // Container(
+                    //   //   // color: Colors.red,
+                    //   //   // clipBehavior:Clip.antiAlias,
+                    //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+                    //   //   decoration: BoxDecoration(
+                    //   //     border: Border.all(color: Colors.white, width: 4),
+                    //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
+                    //   //     image: DecorationImage(
+                    //   //         image: NetworkImage(
+                    //   //           'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+                    //   //         ),
+                    //   //         fit: BoxFit.cover),
+                    //   //   ),
+                    //   //   child: Container(
+                    //   //     alignment: Alignment.bottomLeft,
+                    //   //     child: Text(
+                    //   //       "Tops",
+                    //   //       style: TextStyle(
+                    //   //         fontSize: 18.sp,
+                    //   //         color: Colors.white,
+                    //   //         fontWeight: FontWeight.w600,
+                    //   //       ),
+                    //   //       // textAlign: TextAlign.justify,
+                    //   //     ),
+                    //   //   ),
+                    //   // ),
+                    //   // Container(
+                    //   //   // color: Colors.red,
+                    //   //   // clipBehavior:Clip.antiAlias,
+                    //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+                    //   //   decoration: BoxDecoration(
+                    //   //     border: Border.all(color: Colors.white, width: 4),
+                    //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
+                    //   //     image: DecorationImage(
+                    //   //         image: NetworkImage(
+                    //   //             'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'),
+                    //   //         fit: BoxFit.cover),
+                    //   //   ),
+                    //   //   child: Container(
+                    //   //     alignment: Alignment.bottomLeft,
+                    //   //     child: Text(
+                    //   //       "Jacket",
+                    //   //       style: TextStyle(
+                    //   //         fontSize: 18.sp,
+                    //   //         color: Colors.white,
+                    //   //         fontWeight: FontWeight.w600,
+                    //   //       ),
+                    //   //       // textAlign: TextAlign.justify,
+                    //   //     ),
+                    //   //   ),
+                    //   // ),
+                    //   // Container(
+                    //   //   // color: Colors.red,
+                    //   //   // clipBehavior:Clip.antiAlias,
+                    //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+                    //   //   decoration: BoxDecoration(
+                    //   //     border: Border.all(color: Colors.white, width: 4),
+                    //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
+                    //   //     image: DecorationImage(
+                    //   //         image: NetworkImage(
+                    //   //           'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+                    //   //         ),
+                    //   //         fit: BoxFit.cover),
+                    //   //   ),
+                    //   //   child: Container(
+                    //   //     alignment: Alignment.bottomLeft,
+                    //   //     child: Text(
+                    //   //       "Tops",
+                    //   //       style: TextStyle(
+                    //   //         fontSize: 18.sp,
+                    //   //         color: Colors.white,
+                    //   //         fontWeight: FontWeight.w600,
+                    //   //       ),
+                    //   //       // textAlign: TextAlign.justify,
+                    //   //     ),
+                    //   //   ),
+                    //   // ),
+                    //   // Container(
+                    //   //   // color: Colors.red,
+                    //   //   // clipBehavior:Clip.antiAlias,
+                    //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+                    //   //   decoration: BoxDecoration(
+                    //   //     border: Border.all(color: Colors.white, width: 4),
+                    //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
+                    //   //     image: DecorationImage(
+                    //   //         image: NetworkImage(
+                    //   //             'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'),
+                    //   //         fit: BoxFit.cover),
+                    //   //   ),
+                    //   //   child: Container(
+                    //   //     alignment: Alignment.bottomLeft,
+                    //   //     child: Text(
+                    //   //       "Jacket",
+                    //   //       style: TextStyle(
+                    //   //         fontSize: 18.sp,
+                    //   //         color: Colors.white,
+                    //   //         fontWeight: FontWeight.w600,
+                    //   //       ),
+                    //   //       // textAlign: TextAlign.justify,
+                    //   //     ),
+                    //   //   ),
+                    //   // ),
+                    // ]),
+                    // SizedBox(
+                    //   height: 24.h,
+                    // ),
+                  );
+                }else{
+                    return Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.warning,
+                            size: 80,
+                            color: Colors.grey.shade400,
+                          ),
+                          Text(
+                            'NO DATA',
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontSize: 22,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }
+
+                }
+              ),
+              // FutureBuilder<List<Product>>(
+              //     future: _future,
+              //     builder: (context, snapshot) {
+              //       if (snapshot.connectionState == ConnectionState.waiting) {
+              //         return Container(
+              //             width: double.infinity,
+              //             height: 600.h,
+              //             child: CircularProgressIndicator());
+              //       } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+              //         products = snapshot.data ?? [];
+              //         return GridView.builder(
+              //             itemCount: products.length,
+              //             shrinkWrap: true,
+              //             physics: NeverScrollableScrollPhysics(),
+              //             gridDelegate:
+              //                 SliverGridDelegateWithFixedCrossAxisCount(
+              //               crossAxisCount: 2,
+              //               mainAxisSpacing: 8, //16,
+              //               crossAxisSpacing: 8, //16,
+              //               childAspectRatio: .75, //190 / 175,
+              //             ),
+              //             itemBuilder: (context, index) {
+              //               print("===========products[index].isFavorite===========");
+              //               print("before: $isFavorite");
+              //               isFavorite = products[index].isFavorite;
+              //               print("============isFavorite================");
+              //               print("after:$isFavorite");
+              //               return GestureDetector(
+              //                   child: Stack(children: [
+              //                     Container(
+              //                       decoration: BoxDecoration(
+              //                         border: Border.all(
+              //                             color: Colors.white, width: 4),
+              //                         borderRadius:
+              //                             BorderRadius.all(Radius.circular(10)),
+              //                       ),
+              //                       child: Column(
+              //                         children: [
+              //                           Container(
+              //                             // color: Colors.red,
+              //                             // clipBehavior:Clip.antiAlias,
+              //                             // padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+              //                             // padding: EdgeInsets.only(top: 12.h, right: 20.w),width: 5,height: 5,
+              //                             height: 195.h,
+              //                             decoration: BoxDecoration(
+              //                               // border: Border.all(color: Colors.white, width: 4),
+              //                               borderRadius: BorderRadius.vertical(
+              //                                   top: Radius.circular(10)),
+              //                               image: DecorationImage(
+              //                                   image: NetworkImage(
+              //                                     products[index].imageUrl,
+              //                                     // 'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+              //                                   ),
+              //                                   fit: BoxFit.cover),
+              //                             ),
+              //                           ),
+              //                           Container(
+              //                             padding: EdgeInsets.symmetric(
+              //                                 horizontal: 8.w),
+              //                             child: Column(
+              //                               children: [
+              //                                 SizedBox(
+              //                                   height: 4.h,
+              //                                 ),
+              //                                 Text(
+              //                                   products[index].nameEn,
+              //                                   textAlign: TextAlign.start,
+              //                                   // "Strappy top with lace trim detail",
+              //                                   style: TextStyle(
+              //                                       color: Color.fromRGBO(
+              //                                           49, 49, 49, 1),
+              //                                       fontWeight: FontWeight.w500,
+              //                                       fontSize: 16.sp),
+              //                                 ),
+              //                                 SizedBox(
+              //                                   height: 14.h,
+              //                                 ),
+              //                                 Row(
+              //                                   mainAxisAlignment:
+              //                                       MainAxisAlignment
+              //                                           .spaceBetween,
+              //                                   children: [
+              //                                     Text(
+              //                                       // '\$20',
+              //                                       '\$' +
+              //                                           products[index]
+              //                                               .price
+              //                                               .toString(),
+              //                                       style: TextStyle(
+              //                                           color: Color.fromRGBO(
+              //                                               229, 69, 0, 0.81),
+              //                                           fontWeight:
+              //                                               FontWeight.w600,
+              //                                           fontSize: 22.sp),
+              //                                     ),
+              //                                     // Row(
+              //                                     //   children: [
+              //                                     //     CircleAvatar(
+              //                                     //       radius: 7,
+              //                                     //       backgroundColor: Colors.red,
+              //                                     //     ),
+              //                                     //     SizedBox(
+              //                                     //       width: 3.w,
+              //                                     //     ),
+              //                                     //     CircleAvatar(
+              //                                     //       radius: 7,
+              //                                     //       backgroundColor: Colors
+              //                                     //           .grey,
+              //                                     //     ),
+              //                                     //     SizedBox(
+              //                                     //       width: 3.w,
+              //                                     //     ),
+              //                                     //     CircleAvatar(
+              //                                     //       radius: 7,
+              //                                     //       backgroundColor: Colors
+              //                                     //           .green,
+              //                                     //     ),
+              //                                     //     SizedBox(
+              //                                     //       width: 3.w,
+              //                                     //     ),
+              //                                     //     CircleAvatar(
+              //                                     //       radius: 7,
+              //                                     //       backgroundColor: Colors
+              //                                     //           .blue,
+              //                                     //     ),
+              //                                     //   ],
+              //                                     // )
+              //                                     RatingBar.builder(
+              //                                       initialRating: products[index].productRate+0.0,
+              //                                       minRating: 0,
+              //                                       direction: Axis.horizontal,
+              //                                       allowHalfRating: true,
+              //                                       itemCount: 5,
+              //                                       itemSize: 20.sp,
+              //                                       itemPadding:
+              //                                           EdgeInsets.symmetric(
+              //                                               horizontal: 1),
+              //                                       itemBuilder: (context, _) =>
+              //                                           Icon(
+              //                                         Icons.star,
+              //                                         color: Colors.amber,
+              //                                       ),
+              //                                       onRatingUpdate: (rating) async{
+              //                                         await rateProduct(products[index].id, rating);
+              //                                         setState(() {});
+              //                                       },
+              //                                     ),
+              //                                     // Row(
+              //                                     //   children: [
+              //                                     //     Icon(
+              //                                     //       Icons.star,
+              //                                     //       color: Colors.grey,
+              //                                     //       size: 18,
+              //                                     //     ),
+              //                                     //     SizedBox(
+              //                                     //       width: 0.8.w,
+              //                                     //     ),
+              //                                     //     Icon(
+              //                                     //       Icons.star,
+              //                                     //       color: Colors.grey,
+              //                                     //       size: 18.w,
+              //                                     //     ),
+              //                                     //     SizedBox(
+              //                                     //       width: 0.8.w,
+              //                                     //     ),
+              //                                     //     Icon(
+              //                                     //       Icons.star,
+              //                                     //       color: Colors.grey,
+              //                                     //       size: 18,
+              //                                     //     ),
+              //                                     //     SizedBox(
+              //                                     //       width: 0.8.w,
+              //                                     //     ),
+              //                                     //     Icon(
+              //                                     //       Icons.star,
+              //                                     //       color: Colors.grey,
+              //                                     //       size: 18,
+              //                                     //     ),
+              //                                     //     SizedBox(
+              //                                     //       width: 0.8.w,
+              //                                     //     ),
+              //                                     //     Icon(
+              //                                     //       Icons.star,
+              //                                     //       color: Colors.grey,
+              //                                     //       size: 18,
+              //                                     //     ),
+              //                                     //     SizedBox(
+              //                                     //       width: 0.8.w,
+              //                                     //     ),
+              //                                     //   ],
+              //                                     // ),
+              //                                   ],
+              //                                 )
+              //                               ],
+              //                             ),
+              //                           ),
+              //                         ],
+              //                       ),
+              //                     ),
+              //                     Positioned(
+              //                       child: Container(
+              //                         width: 40.w,
+              //                         height: 40.h,
+              //                         padding: EdgeInsets.all(0),
+              //                         // alignment: Alignment.center,
+              //                         color: Colors.white,
+              //                         child: IconButton(
+              //                             alignment: Alignment.center,
+              //                             onPressed: () async {
+              //                               await changeFavorite(products[index]);
+              //                               setState(() {
+              //                                 //   isFavorite=!isFavorite;
+              //                               });
+              //                             },
+              //                             icon: isFavorite
+              //                                 ? Icon(
+              //                                     Icons.favorite,
+              //                                     color: Colors.red,
+              //                                   )
+              //                                 : Icon(Icons.favorite_outline)),
+              //                       ),
+              //                       top: 2.h,
+              //                       right: 2.w,
+              //                     )
+              //                   ]),
+              //                   onTap: () {
+              //                     print("beforesetState");
+              //                     print(isFavorite);
+              //                     print("product: ${products[index].id}");
+              //                     // setState(() {
+              //                     //   isFavorite=!isFavorite;
+              //                     //   print("After setState:$isFavorite");
+              //                     // });
+              //                     Navigator.push(
+              //                         context,
+              //                         MaterialPageRoute(
+              //                           builder: (context) =>
+              //                               ProductDetailsScreen(
+              //                                   products[index].id),
+              //                         ));
+              //                   });
+              //             }
+              //             // children: [
+              //             //
+              //             //   // Container(
+              //             //   //   // color: Colors.red,
+              //             //   //   // clipBehavior:Clip.antiAlias,
+              //             //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+              //             //   //   decoration: BoxDecoration(
+              //             //   //     border: Border.all(color: Colors.white, width: 4),
+              //             //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
+              //             //   //     image: DecorationImage(
+              //             //   //         image: NetworkImage(
+              //             //   //             'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'),
+              //             //   //         fit: BoxFit.cover),
+              //             //   //   ),
+              //             //   //   child: Container(
+              //             //   //     alignment: Alignment.bottomLeft,
+              //             //   //     child: Text(
+              //             //   //       "Jacket",
+              //             //   //       style: TextStyle(
+              //             //   //         fontSize: 18.sp,
+              //             //   //         color: Colors.white,
+              //             //   //         fontWeight: FontWeight.w600,
+              //             //   //       ),
+              //             //   //       // textAlign: TextAlign.justify,
+              //             //   //     ),
+              //             //   //   ),
+              //             //   // ),
+              //             //   // Container(
+              //             //   //   // color: Colors.red,
+              //             //   //   // clipBehavior:Clip.antiAlias,
+              //             //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+              //             //   //   decoration: BoxDecoration(
+              //             //   //     border: Border.all(color: Colors.white, width: 4),
+              //             //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
+              //             //   //     image: DecorationImage(
+              //             //   //         image: NetworkImage(
+              //             //   //           'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+              //             //   //         ),
+              //             //   //         fit: BoxFit.cover),
+              //             //   //   ),
+              //             //   //   child: Container(
+              //             //   //     alignment: Alignment.bottomLeft,
+              //             //   //     child: Text(
+              //             //   //       "Tops",
+              //             //   //       style: TextStyle(
+              //             //   //         fontSize: 18.sp,
+              //             //   //         color: Colors.white,
+              //             //   //         fontWeight: FontWeight.w600,
+              //             //   //       ),
+              //             //   //       // textAlign: TextAlign.justify,
+              //             //   //     ),
+              //             //   //   ),
+              //             //   // ),
+              //             //   // Container(
+              //             //   //   // color: Colors.red,
+              //             //   //   // clipBehavior:Clip.antiAlias,
+              //             //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+              //             //   //   decoration: BoxDecoration(
+              //             //   //     border: Border.all(color: Colors.white, width: 4),
+              //             //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
+              //             //   //     image: DecorationImage(
+              //             //   //         image: NetworkImage(
+              //             //   //             'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'),
+              //             //   //         fit: BoxFit.cover),
+              //             //   //   ),
+              //             //   //   child: Container(
+              //             //   //     alignment: Alignment.bottomLeft,
+              //             //   //     child: Text(
+              //             //   //       "Jacket",
+              //             //   //       style: TextStyle(
+              //             //   //         fontSize: 18.sp,
+              //             //   //         color: Colors.white,
+              //             //   //         fontWeight: FontWeight.w600,
+              //             //   //       ),
+              //             //   //       // textAlign: TextAlign.justify,
+              //             //   //     ),
+              //             //   //   ),
+              //             //   // ),
+              //             //   // Container(
+              //             //   //   // color: Colors.red,
+              //             //   //   // clipBehavior:Clip.antiAlias,
+              //             //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+              //             //   //   decoration: BoxDecoration(
+              //             //   //     border: Border.all(color: Colors.white, width: 4),
+              //             //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
+              //             //   //     image: DecorationImage(
+              //             //   //         image: NetworkImage(
+              //             //   //           'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+              //             //   //         ),
+              //             //   //         fit: BoxFit.cover),
+              //             //   //   ),
+              //             //   //   child: Container(
+              //             //   //     alignment: Alignment.bottomLeft,
+              //             //   //     child: Text(
+              //             //   //       "Tops",
+              //             //   //       style: TextStyle(
+              //             //   //         fontSize: 18.sp,
+              //             //   //         color: Colors.white,
+              //             //   //         fontWeight: FontWeight.w600,
+              //             //   //       ),
+              //             //   //       // textAlign: TextAlign.justify,
+              //             //   //     ),
+              //             //   //   ),
+              //             //   // ),
+              //             //   // Container(
+              //             //   //   // color: Colors.red,
+              //             //   //   // clipBehavior:Clip.antiAlias,
+              //             //   //   padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
+              //             //   //   decoration: BoxDecoration(
+              //             //   //     border: Border.all(color: Colors.white, width: 4),
+              //             //   //     borderRadius: BorderRadius.all(Radius.circular(10)),
+              //             //   //     image: DecorationImage(
+              //             //   //         image: NetworkImage(
+              //             //   //             'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'),
+              //             //   //         fit: BoxFit.cover),
+              //             //   //   ),
+              //             //   //   child: Container(
+              //             //   //     alignment: Alignment.bottomLeft,
+              //             //   //     child: Text(
+              //             //   //       "Jacket",
+              //             //   //       style: TextStyle(
+              //             //   //         fontSize: 18.sp,
+              //             //   //         color: Colors.white,
+              //             //   //         fontWeight: FontWeight.w600,
+              //             //   //       ),
+              //             //   //       // textAlign: TextAlign.justify,
+              //             //   //     ),
+              //             //   //   ),
+              //             //   // ),
+              //             // ]),
+              //             // SizedBox(
+              //             //   height: 24.h,
+              //             // ),
+              //             );
+              //       } else {
+              //         return Container(
+              //             width: double.infinity,
+              //             height: 600.h,
+              //             child: Text("No Data"));
+              //       }
+              //     }),
             ]),
       ),
     );

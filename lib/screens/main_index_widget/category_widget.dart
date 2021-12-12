@@ -38,7 +38,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                 width: double.infinity,
                 height: 600.h,
                 child: CircularProgressIndicator());
-          } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+          }
+          else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
             categories=snapshot.data??[];
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),

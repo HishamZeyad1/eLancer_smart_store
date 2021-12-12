@@ -39,7 +39,7 @@ class FavoriteGetxController extends GetxController {
   //   return false;
   // }
   Future<BaseApi?> ChangeFavorite(Product product) async {
-    int type=product.isFavorite==true?1:2;//before change
+    // int type=product.isFavorite==true?1:2;//before change
 
     BaseApi? newRowId = await _favoriteApiController.favoriteProduct(
         product);

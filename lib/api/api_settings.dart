@@ -1,3 +1,5 @@
+import 'package:smart_store/screens/Auth/change_password.dart';
+
 class ApiSettings {
 static const Store_API_Key="e72e2aaf-df61-485a-aac6-f2e0ecbd3335";
 
@@ -22,7 +24,12 @@ static const productDetails = _apiUrl + 'products/';
 
 
 static const favorite = _apiUrl + 'favorite-products';
-
 static const rating = _apiUrl + 'products/rate';
+
+static const changePassword = _apiUrl + 'auth/change-password';
+static const changeProfile = _apiUrl + 'auth/update-profile';
+
+static const faqs = _apiUrl + 'faqs';
+static const contact = _apiUrl + 'contact-requests';
 
 }

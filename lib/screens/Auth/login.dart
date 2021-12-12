@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_store/api/controllers/auth_api_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
+import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/widgets/AppTextField.dart';
 import 'package:smart_store/widgets/LabelTextField.dart';
 import 'package:smart_store/widgets/LoginAction.dart';
@@ -117,37 +118,37 @@ class _LoginState extends State<Login> with Helpers{
             padding:
                 EdgeInsets.only(top: 0.h, left: 24.w, right: 24.w, bottom: 0),
             children: [
-              SizedBox(height: 250.h,),
-              LoginAction(
-                  image: 'images/Google-icon.svg',
-                  title: 'Continue with Google'),
-              SizedBox(
-                height: 28.h,
-              ),
-              LoginAction(
-                  image: 'images/Facebook-icon.svg',
-                  title: 'Continue with Facebook'),
-              SizedBox(
-                height: 20.h,
-              ),
-              Row(children: <Widget>[
-                Expanded(
-                    child: Divider(
-                  height: 20.h,
-                )),
-                Text(
-                  "  or  ",
-                  style: TextStyle(
-                      fontSize: 14, color: Color.fromRGBO(151, 151, 151, 1)),
-                ),
-                Expanded(
-                    child: Divider(
-                  height: 20.h,
-                )),
-              ]),
-              SizedBox(
-                height: 20.h,
-              ),
+              SizedBox(height: 380.h,),
+              // LoginAction(
+              //     image: 'images/Google-icon.svg',
+              //     title: 'Continue with Google'),
+              // SizedBox(
+              //   height: 28.h,
+              // ),
+              // LoginAction(
+              //     image: 'images/Facebook-icon.svg',
+              //     title: 'Continue with Facebook'),
+              // SizedBox(
+              //   height: 20.h,
+              // ),
+              // Row(children: <Widget>[
+              //   Expanded(
+              //       child: Divider(
+              //     height: 20.h,
+              //   )),
+              //   Text(
+              //     "  or  ",
+              //     style: TextStyle(
+              //         fontSize: 14, color: Color.fromRGBO(151, 151, 151, 1)),
+              //   ),
+              //   Expanded(
+              //       child: Divider(
+              //     height: 20.h,
+              //   )),
+              // ]),
+              // SizedBox(
+              //   height: 20.h,
+              // ),
               Column(
                 children: [
                   LabelTextField("Phone Number"),
@@ -168,7 +169,7 @@ class _LoginState extends State<Login> with Helpers{
                   AppTextField(controller:_passwordTextController ,
                     hintText: 'Enter your password',
                     keyboardType: TextInputType.visiblePassword,
-                    // obsure: true,
+                    obsure: true,
                   ),
                   SizedBox(
                     height: 4.h,
@@ -249,7 +250,7 @@ class _LoginState extends State<Login> with Helpers{
     }
     showSnackBar(
       context: context,
-      message: 'Enter required data!',
+      message: SharedPrefController().language=='en'?'Enter required Field!':'ادخل الحقول المطلوبة',
       error: true,
     );
     return false;

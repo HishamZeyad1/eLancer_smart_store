@@ -10,12 +10,14 @@ class AppTextField extends StatelessWidget {
   // late final IconData? lasticon;
   late final TextEditingController? controller;
   late bool obsure;
+  int? hpadding;
+  int maxline;
 
   AppTextField(
       {required this.hintText,
       required this.keyboardType,
       required this.controller,
-      this.obsure = false,this.enable=true});
+      this.obsure = false,this.enable=true,this.hpadding,this.maxline=1});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,9 @@ class AppTextField extends StatelessWidget {
       style: TextStyle(color: Color.fromRGBO(151, 151, 151, 1),fontSize: 13,fontWeight: FontWeight.w500),
       keyboardType: keyboardType,enabled: enable,
       obscureText: obsure,
-      controller: controller,
+      controller: controller,maxLines: maxline,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+        contentPadding: hpadding==null?EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h):EdgeInsets.symmetric(horizontal: 20.w, vertical: hpadding!.h),
         hintText: hintText,
         focusColor: Colors.blue,
         enabled: enable,

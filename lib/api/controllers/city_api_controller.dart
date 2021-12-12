@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:smart_store/models/city.dart';
+import 'package:smart_store/prefs/shared_pref_controller.dart';
 
 import '../api_settings.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +14,8 @@ class CityApiController {
       url,
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
-      },
+        'lang': SharedPrefController().language
+    },
     );
     print("status: " + response.statusCode.toString());
 

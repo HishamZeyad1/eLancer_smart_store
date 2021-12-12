@@ -9,10 +9,12 @@ import 'package:smart_store/screens/product_screen.dart';
 
 class imageSlider extends StatefulWidget {
   late List<Sliders> sliders;
-
-  imageSlider(this.sliders); // const imageSlider({Key? key}) : super(key: key);
+  late double scale;
+  late bool disable;
+  imageSlider(this.sliders,{this.scale=2.7,this.disable=false}); // const imageSlider({Key? key}) : super(key: key);
   @override
   _imageSliderState createState() => _imageSliderState();
+
 }
 
 class _imageSliderState extends State<imageSlider> {
@@ -49,10 +51,13 @@ class _imageSliderState extends State<imageSlider> {
                     child: Stack(
                       children: <Widget>[
                         GestureDetector(
-                          child: Image.network(item.imageUrl,
-                              fit: BoxFit.cover,/* width: 1000.0*/),
-                          onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(item.objectId),)),
-
+                          child: Container(
+                            width: double.infinity,
+                            height: 800.h,
+                            child: Image.network(item.imageUrl,
+                                fit: BoxFit.cover,/* width: 1000.0*/),
+                          ),
+                          onTap: () =>widget.disable?null:Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(item.objectId),)),
                         ),
                         // Positioned(
                         //   bottom: 0.0,
@@ -96,7 +101,7 @@ class _imageSliderState extends State<imageSlider> {
 
         child: CarouselSlider(
       options: CarouselOptions(
-        aspectRatio: 2.7,
+        aspectRatio: widget.scale,
         enlargeCenterPage: false,
         scrollDirection: Axis.horizontal,
         autoPlay: true,

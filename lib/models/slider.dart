@@ -3,7 +3,8 @@ class Sliders {
   late int objectId;
   late String url;
   late String imageUrl;
-  Sliders();
+
+  Sliders(this.id, this.objectId, this.url, this.imageUrl); // Sliders();
 
   Sliders.fromJson(Map<String, dynamic> json) {
     id = json['id'];

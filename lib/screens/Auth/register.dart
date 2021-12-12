@@ -5,6 +5,7 @@ import 'package:smart_store/api/controllers/city_api_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/city.dart';
 import 'package:smart_store/models/user.dart';
+import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/screens/Auth/activate_screen.dart';
 import 'package:smart_store/screens/Auth/reset_password.dart';
 import 'package:smart_store/widgets/AppTextField.dart';
@@ -102,42 +103,43 @@ class _RegisterState extends State<Register> with Helpers {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 0),
         children: [
+          // SizedBox(
+          //   height: 0.h,
+          // ),
+
+          // LoginAction(
+          //   image: 'images/Google-icon.svg',
+          //   title: 'Continue with Google',
+          //   height: 52.h,
+          // ),
+          // SizedBox(
+          //   height: 28.h,
+          // ),
+          // LoginAction(
+          //   image: 'images/Facebook-icon.svg',
+          //   title: 'Continue with Facebook',
+          //   height: 52.h,
+          // ),
+          // SizedBox(
+          //   height: 32.h,
+          // ),
+          // Row(children: <Widget>[
+          //   Expanded(
+          //       child: Divider(
+          //         height: 20.h,
+          //       )),
+          //   Text(
+          //     "  or  ",
+          //     style: TextStyle(
+          //         fontSize: 14, color: Color.fromRGBO(151, 151, 151, 1)),
+          //   ),
+          //   Expanded(
+          //       child: Divider(
+          //         height: 20.h,
+          //       )),
+          // ]),
           SizedBox(
-            height: 72.h,
-          ),
-          LoginAction(
-            image: 'images/Google-icon.svg',
-            title: 'Continue with Google',
-            height: 52.h,
-          ),
-          SizedBox(
-            height: 28.h,
-          ),
-          LoginAction(
-            image: 'images/Facebook-icon.svg',
-            title: 'Continue with Facebook',
-            height: 52.h,
-          ),
-          SizedBox(
-            height: 32.h,
-          ),
-          Row(children: <Widget>[
-            Expanded(
-                child: Divider(
-                  height: 20.h,
-                )),
-            Text(
-              "  or  ",
-              style: TextStyle(
-                  fontSize: 14, color: Color.fromRGBO(151, 151, 151, 1)),
-            ),
-            Expanded(
-                child: Divider(
-                  height: 20.h,
-                )),
-          ]),
-          SizedBox(
-            height: 32.h,
+            height: 22.h,
           ),
           LabelTextField("Name"),
           SizedBox(
@@ -351,7 +353,7 @@ class _RegisterState extends State<Register> with Helpers {
     }
     showSnackBar(
       context: context,
-      message: 'Enter required data!',
+      message: SharedPrefController().language=='en'?'Enter required Field!':'ادخل الحقول المطلوبة',
       error: true,
     );
     return false;
@@ -361,7 +363,8 @@ class _RegisterState extends State<Register> with Helpers {
     bool status = await AuthApiController().register(context,user: user);
     if(status){
       Navigator.push(context, MaterialPageRoute(builder: (context) =>
-        ResetPassword(prviousPage: 1,phoneNumber: _phoneTextController.text,),));}
+        ResetPassword(prviousPage: 1,phoneNumber: _phoneTextController.text,),));
+    }
   }
   User get user {
     User user = User();

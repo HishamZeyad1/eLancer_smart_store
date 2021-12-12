@@ -15,20 +15,20 @@ class Product {
 
  // Product();
 
-  // Product(
-  //     {required this.id,
-  //      required  this.nameEn,
-  //      required  this.nameAr,
-  //      required  this.infoEn,
-  //      required  this.infoAr,
-  //      required  this.price,
-  //      required  this.quantity,
-  //      required  this.overalRate,
-  //      required  this.subCategoryId,
-  //      required  this.productRate,
-  //      required  this.offerPrice,
-  //      required  this.isFavorite,
-  //      required  this.imageUrl});
+  Product(
+      {required this.id,
+       required  this.nameEn,
+       required  this.nameAr,
+       required  this.infoEn,
+       required  this.infoAr,
+       required  this.price,
+       required  this.quantity,
+       required  this.overalRate,
+       required  this.subCategoryId,
+       required  this.productRate,
+       required  this.offerPrice,
+       required  this.isFavorite,
+       required  this.imageUrl});
 
  Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];

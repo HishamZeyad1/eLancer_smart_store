@@ -1,5 +1,5 @@
 class BaseApi {
-  late bool status;
+  bool? status;
   late String message;
 
 
