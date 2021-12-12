@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_store/api/controllers/category_api_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/models/category.dart';
 import 'package:smart_store/screens/sub_category_screen.dart';
 
@@ -29,6 +30,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
 }
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
+
     return FutureBuilder<List<Category>>(
         future: _future,
         builder: (context, snapshot) {
@@ -72,7 +75,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                       alignment: Alignment.bottomLeft,
                       child: Text(
                         // "Tops",
-                        categories[index].nameEn,
+                        lang=='en'? categories[index].nameEn:categories[index].nameAr,
+
                         style: TextStyle(
                           fontSize: 18.sp,
                           // color: Colors.white,

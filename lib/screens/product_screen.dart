@@ -9,13 +9,14 @@ import 'package:smart_store/api/controllers/category_api_controller.dart';
 import 'package:smart_store/api/controllers/favorite_api_controller.dart';
 import 'package:smart_store/api/controllers/rate_api_controller.dart';
 import 'package:smart_store/get/favorite_getx_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/get/product_getx_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/base_api.dart';
 import 'package:smart_store/models/product.dart';
 import 'package:smart_store/screens/product_details_screen.dart';
 import 'package:smart_store/widgets/LabelTextField.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ProductScreen extends StatefulWidget {
   // const ProductScreen({Key? key}) : super(key: key);
   late int id;
@@ -47,6 +48,8 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
 
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
+
     print("Build");
     print(isFavorite);
     return Scaffold(
@@ -71,7 +74,7 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
         centerTitle: true,
         // leadingWidth: 1,
         // title:Text("dlldl "),
-        title: Text('products'),
+        title: Text(/*'products'*/AppLocalizations.of(context)!.product,),
         // actions: [
         //   IconButton(
         //       onPressed: () {},
@@ -309,7 +312,9 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
                                             height: 4.h,
                                           ),
                                           Text(
-                                            controller.products[index].nameEn,
+                                            lang=='en'?
+                                            controller.products[index].nameEn:
+                                            controller.products[index].nameAr,
                                             // products[index].nameEn,
                                             textAlign: TextAlign.start,
                                             // "Strappy top with lace trim detail",

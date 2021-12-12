@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_store/api/controllers/auth_api_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
+import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/widgets/AppTextField.dart';
 import 'package:smart_store/widgets/LabelTextField.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class NewPassword extends StatefulWidget {
   // const NewPassword({Key? key}) : super(key: key);
 late String phoneNumber;
@@ -44,7 +46,8 @@ class _NewPasswordState extends State<NewPassword> with Helpers {
               ),
             )),
         title: Text(
-          "Reset Password",
+          // "Reset Password",
+            AppLocalizations.of(context)!.resetpassword,
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
@@ -70,23 +73,23 @@ class _NewPasswordState extends State<NewPassword> with Helpers {
 
           Column(
             children: [
-              LabelTextField("New Password"),
+              LabelTextField(AppLocalizations.of(context)!.resetpassword /*"New Password"*/),
               SizedBox(
                 height: 12.h,
               ),
               AppTextField(controller: _passwordTextController,obsure: true,
-                hintText: 'Enter new Password',
+                hintText:AppLocalizations.of(context)!.passwordhint, //'Enter new Password',
                 keyboardType: TextInputType.visiblePassword,
               ),
               SizedBox(
                 height: 15.h,//28.h,
               ),
-              LabelTextField("Confirm Password"),
+              LabelTextField(AppLocalizations.of(context)!.confirmpassword /*"Confirm Password"*/),
               SizedBox(
                 height: 12.h,
               ),
               AppTextField(controller:_confirmPasswordTextController ,obsure: true,
-                hintText: 'Enter confirm Password',
+                hintText: AppLocalizations.of(context)!.confirmpasswordhint,//'Enter confirm Password',
                 keyboardType: TextInputType.visiblePassword,
                 // obsure: true,
               ),
@@ -103,7 +106,7 @@ class _NewPasswordState extends State<NewPassword> with Helpers {
             },
             child: Container(
                 width: double.infinity,
-                child: Text("Reset password", style: TextStyle(
+                child: Text(AppLocalizations.of(context)!.resetpassword,/*"Reset password",*/ style: TextStyle(
                     fontSize: 18, fontWeight: FontWeight.w600),)),
             style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(229, 69, 0, 0.81),
@@ -147,11 +150,14 @@ class _NewPasswordState extends State<NewPassword> with Helpers {
       }
       showSnackBar(
           context: context,
-          message: 'Password confirmation error!',
+          // message: 'Password confirmation error!',
+          message: SharedPrefController().language=='en'?'Password confirmation error!':'خطأ في تأكيد كلمة المرور',
           error: true);
       return false;
     }
-    showSnackBar(context: context, message: 'Enter new password!', error: true);
+    showSnackBar(context: context, message: SharedPrefController().language=='en'?'Enter required Field!':'ادخل الحقول المطلوبة', error: true);
+
+    // showSnackBar(context: context, message: 'Enter new password!', error: true);
     return false;
   }
 

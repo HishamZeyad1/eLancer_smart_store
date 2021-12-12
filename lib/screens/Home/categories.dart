@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/models/category.dart';
 import 'package:smart_store/models/product.dart';
 import 'package:smart_store/screens/product_details_screen.dart';
@@ -27,6 +28,8 @@ class _CategoriesState extends State<Categories> {
   }
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
+
     print("=====widget.cp is Category=======");
     int? type;
     print(widget.cp is List<Category>);
@@ -71,7 +74,9 @@ class _CategoriesState extends State<Categories> {
               child: Text(
                 // "Tops",
                 // categories[index].nameEn,
-                type==1?categories[index].nameEn:products[index].nameEn,
+                type==1?
+                lang=="en"?categories[index].nameEn:categories[index].nameAr
+                :lang=="en"?products[index].nameEn:products[index].nameAr,
 
                 style: TextStyle(
                   fontSize: 16.sp,

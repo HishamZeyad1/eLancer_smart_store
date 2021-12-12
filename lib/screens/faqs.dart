@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_store/api/controllers/faqs_api_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/models/faqs.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FAQSScreen extends StatefulWidget {
   @override
@@ -25,10 +27,12 @@ class _FAQSScreenState extends State<FAQSScreen> {
   // }
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "FAQS",
+          // "FAQS",
+          AppLocalizations.of(context)!.faqs,
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Color.fromRGBO(229, 69, 0, 0.81),
@@ -53,11 +57,11 @@ class _FAQSScreenState extends State<FAQSScreen> {
                   horizontalTitleGap: 0,
 
                   // minVerticalPadding: 20.h,
-                  title: Text(faqs[index].questionEn/*"How can use app in flutter in single child? "*/),
+                  title: Text(lang=='en'?faqs[index].questionEn:faqs[index].questionAr/*"How can use app in flutter in single child? "*/),
                   subtitle: Padding(
                     padding: EdgeInsets.only(top: 10.h),
                     child: Text(
-                    faqs[index].answerEn,
+                    lang=='en'?faqs[index].answerEn:faqs[index].answerAr,
                         // "f you wrap any widget in Flutter with the AbsorbPointer Widget, you can enable or disable that widget. That means if you wrap your whole UI f you wrap any widget in Flutter with the AbsorbPointer Widget, you can enable or disable that widget. That means if you wrap your whole UI "
                  ),
                   ),

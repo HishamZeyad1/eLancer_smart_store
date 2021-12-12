@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_store/api/controllers/auth_api_controller.dart';
 import 'package:smart_store/api/controllers/home_api_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/category.dart';
 import 'package:smart_store/models/category_type.dart';
@@ -14,6 +15,7 @@ import 'package:smart_store/screens/Home/categories.dart';
 import 'package:smart_store/screens/Home/image_slider.dart';
 import 'package:smart_store/screens/latestfamous_product_screen.dart';
 import 'package:smart_store/widgets/AppListTile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -51,6 +53,7 @@ class _HomeWidgetState extends State<HomeWidget>with Helpers{
 
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
     return Container(
       padding: EdgeInsets.symmetric(vertical: 1,horizontal: 1),
       child: FutureBuilder<Home?>(
@@ -144,12 +147,14 @@ class _HomeWidgetState extends State<HomeWidget>with Helpers{
                     children: [
                       Expanded(
                           child: Text(
-                            "Categories",
+                            // "Categories",
+                            AppLocalizations.of(context)!.categories,
+
                             style: TextStyle(
                                 fontSize: 24.sp, fontWeight: FontWeight.w600),
                           )),
                       GestureDetector(
-                        child: Text("see all",
+                        child: Text(AppLocalizations.of(context)!.seeall, //"see all",
                             style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w400,
@@ -184,12 +189,13 @@ class _HomeWidgetState extends State<HomeWidget>with Helpers{
                     children: [
                       Expanded(
                           child: Text(
-                            "Latest Products",
+                            // "Latest Products",AppLocalizations
+                         AppLocalizations.of(context)!.latestproduct,
                             style: TextStyle(
                                 fontSize: 24.sp, fontWeight: FontWeight.w600),
                           )),
                       GestureDetector(
-                        child: Text("see all",
+                        child: Text(AppLocalizations.of(context)!.seeall,//"see all",
                             style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w400,
@@ -265,12 +271,13 @@ class _HomeWidgetState extends State<HomeWidget>with Helpers{
                     children: [
                       Expanded(
                           child: Text(
-                            "Famous Products",
+                            // "Famous Products",
+                      AppLocalizations.of(context)!.famousproduct,
                             style: TextStyle(
                                 fontSize: 24.sp, fontWeight: FontWeight.w600),
                           )),
                       GestureDetector(
-                        child: Text("see all",
+                        child: Text(AppLocalizations.of(context)!.seeall,//"see all",
                             style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w400,

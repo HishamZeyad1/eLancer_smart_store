@@ -6,7 +6,7 @@ import 'package:smart_store/api/controllers/favorite_api_controller.dart';
 import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/screens/Auth/change_password.dart';
 import 'package:smart_store/screens/Auth/forget_password.dart';
-import 'package:smart_store/screens/Contact.dart';
+import 'package:smart_store/screens/contact.dart';
 import 'package:smart_store/screens/about_developer.dart';
 import 'package:smart_store/screens/faqs.dart';
 import 'package:smart_store/screens/setting_screen.dart';
@@ -79,7 +79,9 @@ class MyApp extends StatelessWidget {
       "/about_developer":(context)=>AboutDeveloperScreen(),
       "/faqs":(context)=>FAQSScreen(),
       "/contact":(context)=>Contact(),
-      } ,
+      "/on_boarding":(context)=>OnBoarding(),
+
+        } ,
       );
       }
       ),

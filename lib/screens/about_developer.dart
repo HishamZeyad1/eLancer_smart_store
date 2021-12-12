@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AboutDeveloperScreen extends StatelessWidget {
   const AboutDeveloperScreen({Key? key}) : super(key: key);
 
@@ -47,8 +47,8 @@ class AboutDeveloperScreen extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                'Hisham Al Belbeisi',
-                // AppLocalizations.of(context)!.fullnamedeveloper,
+                // 'Hisham Al Belbeisi',
+                AppLocalizations.of(context)!.fullnamedeveloper,
                 style: TextStyle(
                   fontSize: 17,
                   color: Colors.white,
@@ -60,8 +60,8 @@ class AboutDeveloperScreen extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                ' Flutter Develoer',
-                // AppLocalizations.of(context)!.developerJob,
+                // ' Flutter Develoer',
+                AppLocalizations.of(context)!.developerJob,
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
@@ -85,7 +85,7 @@ class AboutDeveloperScreen extends StatelessWidget {
                   shadowColor: Colors.deepPurple,
                   child: ListTile(minLeadingWidth: 0,
                     leading: Icon(Icons.email_sharp),
-                    title: Text("Email",//AppLocalizations.of(context)!.email,
+                    title: Text(AppLocalizations.of(context)!.email,//"Email",
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 18,
@@ -113,7 +113,7 @@ class AboutDeveloperScreen extends StatelessWidget {
                   shadowColor: Colors.deepPurple,
                   child:  ListTile(minLeadingWidth: 0,
                     leading: Icon(Icons.call),
-                    title: Text('Phone Number',//AppLocalizations.of(context)!.developerphonenumber,
+                    title: Text(AppLocalizations.of(context)!.developerphonenumber,//'Phone Number',
                       style: TextStyle(
                         fontFamily:' fontFamily',
                         fontWeight: FontWeight.normal,
@@ -130,7 +130,7 @@ class AboutDeveloperScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 5,),
-              Text('contact with us'/*AppLocalizations.of(context)!.contact,*/),
+              Text(AppLocalizations.of(context)!.contact,),//'contact with us'
               const SizedBox(height: 3,),
               Padding(
                 padding: const EdgeInsets.only(right: 15, left: 15),
@@ -192,8 +192,8 @@ class AboutDeveloperScreen extends StatelessWidget {
               // SizedBox(height: 15,),
               Divider(),
               Text(
-                'ELAnCER_FLUTTER',
-                // AppLocalizations.of(context)!.course,
+                // 'ELAnCER_FLUTTER',
+                AppLocalizations.of(context)!.course,
 
                 style: TextStyle(
                     fontSize: 15,

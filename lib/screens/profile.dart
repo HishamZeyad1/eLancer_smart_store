@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_store/api/controllers/auth_api_controller.dart';
 import 'package:smart_store/api/controllers/city_api_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/city.dart';
 import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/widgets/AppTextField.dart';
 import 'package:smart_store/widgets/LabelTextField.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class changeProfile extends StatefulWidget {
   // const NewPassword({Key? key}) : super(key: key);
   late String oldPassword;
@@ -55,6 +56,8 @@ class _changeProfileState extends State<changeProfile> with Helpers {
 
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
+
     return Scaffold(
       appBar: AppBar(
         // leading: IconButton(
@@ -66,7 +69,9 @@ class _changeProfileState extends State<changeProfile> with Helpers {
         //     //   ),
         //     )),
         title: Text(
-          "Change Profile",
+          // "Change Profile",
+          AppLocalizations.of(context)!.changeprofile,
+
           style: TextStyle(color: Colors.white),
         ),
         // backgroundColor: Colors.transparent,
@@ -87,7 +92,7 @@ class _changeProfileState extends State<changeProfile> with Helpers {
           // SvgPicture.asset('images/Lock-logo.svg'),
           Column(
             children: [
-              LabelTextField("User's Name"),
+              LabelTextField(AppLocalizations.of(context)!.usersname, /*"User's Name"*/),
               SizedBox(
                 height: 20.h,
               ),
@@ -98,7 +103,7 @@ class _changeProfileState extends State<changeProfile> with Helpers {
               SizedBox(
                 height: 20.h, //28.h,
               ),
-              LabelTextField("User's Gender"),
+              LabelTextField(AppLocalizations.of(context)!.usersgender/*"User's Gender"*/),
               SizedBox(
                 height: 20.h,
               ),
@@ -117,7 +122,7 @@ class _changeProfileState extends State<changeProfile> with Helpers {
                       child: RadioListTile(
                         contentPadding: EdgeInsets.zero,
                         value: 'M',
-                        title: Text('Male'),
+                        title: Text(AppLocalizations.of(context)!.male/*'Male'*/),
                         groupValue: _gender,
                         onChanged: (value) {
                           if (value != null && value != _gender) {
@@ -131,7 +136,7 @@ class _changeProfileState extends State<changeProfile> with Helpers {
                     Expanded(
                         child: RadioListTile(
                           value: 'F',
-                          title: Text('Female'),
+                          title: Text(AppLocalizations.of(context)!.female/*'Female'*/),
                           groupValue: _gender,
                           onChanged: (value) {
                             if (value != null && value != _gender) {
@@ -145,7 +150,7 @@ class _changeProfileState extends State<changeProfile> with Helpers {
                 ),
               ),
 
-              LabelTextField("City"),
+              LabelTextField(AppLocalizations.of(context)!.city/*"City"*/),
               SizedBox(
                 height: 20.h,
               ),
@@ -156,6 +161,7 @@ class _changeProfileState extends State<changeProfile> with Helpers {
                   else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                     _cites = snapshot.data ?? [];
                     print("cities: ${_cites}");
+                    // return Container();
                     return  DropdownButton(
                         isExpanded: true,
                         value: _selectedCity,
@@ -167,9 +173,9 @@ class _changeProfileState extends State<changeProfile> with Helpers {
                             });
                           }
                         },
-                        hint: Text("select a City"),
+                        hint: Text(AppLocalizations.of(context)!.cityhint/*"select a City"*/),
                         items: _cites.map((e) =>DropdownMenuItem(
-                          child: Text(e.nameEn),
+                          child: Text(lang=='en'?e.nameEn:e.nameAr),
                           value: e.id,
                           onTap: () {},
                         ),).toList()
@@ -209,7 +215,7 @@ class _changeProfileState extends State<changeProfile> with Helpers {
             },
             child: Container(
                 width: double.infinity,
-                child: Text("Change Profile", style: TextStyle(
+                child: Text(AppLocalizations.of(context)!.changeprofile/*"Change Profile"*/, style: TextStyle(
                     fontSize: 18, fontWeight: FontWeight.w600),)),
             style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(229, 69, 0, 0.81),

@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_store/api/controllers/auth_api_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
+import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/screens/Auth/reset_password.dart';
 import 'package:smart_store/widgets/AppTextField.dart';
 import 'package:smart_store/widgets/LabelTextField.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({Key? key}) : super(key: key);
 
@@ -44,7 +45,8 @@ class _ForgetPasswordState extends State<ForgetPassword> with Helpers {
               ),
             )),
         title: Text(
-          "Forget Password",
+          // "Forget Password",
+            AppLocalizations.of(context)!.forget,
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
@@ -69,13 +71,13 @@ class _ForgetPasswordState extends State<ForgetPassword> with Helpers {
           ),
 
           // Text('Enter the email address or associated with your account'),
-          LabelTextField(
-              'Enter the mobile phone or associated with your account'),
+          LabelTextField(AppLocalizations.of(context)!.forgethint
+              /*'Enter the mobile phone or associated with your account'*/),
           SizedBox(
             height: 12.h,
           ),
           AppTextField(controller: _phoneTextController,
-              hintText: 'Enter your mobile',
+              hintText: AppLocalizations.of(context)!.phonenumberhint/*'Enter your mobile'*/,
               keyboardType: TextInputType.phone),
           SizedBox(
             height: 4.h,
@@ -86,7 +88,8 @@ class _ForgetPasswordState extends State<ForgetPassword> with Helpers {
               width: double.infinity,
               alignment: Alignment.centerRight,
               child: Text(
-                "Try another way",
+                // "Try another way",
+                  AppLocalizations.of(context)!.tryanother,
                 style: TextStyle(color: Color.fromRGBO(229, 69, 0, 0.81)),
               ),
             ), onTap: () => print("object"),),
@@ -102,7 +105,7 @@ class _ForgetPasswordState extends State<ForgetPassword> with Helpers {
               },
               child: Container(
                   width:double.infinity,//margin: EdgeInsets.symmetric(horizontal:100.w),
-                  child: Text("Next", textAlign: TextAlign.center,style: TextStyle(
+                  child: Text(/*"Next"*/AppLocalizations.of(context)!.next, textAlign: TextAlign.center,style: TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w600),)),
               style: ElevatedButton.styleFrom(
                 primary: Color.fromRGBO(229, 69, 0, 0.81),
@@ -131,11 +134,13 @@ class _ForgetPasswordState extends State<ForgetPassword> with Helpers {
     if (_phoneTextController.text.isNotEmpty) {
       return true;
     }
-    showSnackBar(
-      context: context,
-      message: 'Enter required data!',
-      error: true,
-    );
+    // showSnackBar(
+    //   context: context,
+    //   message: 'Enter required data!',
+    //   error: true,
+    // );
+    showSnackBar(context: context, message: SharedPrefController().language=='en'?'Enter required Field!':'ادخل الحقول المطلوبة', error: true);
+
     return false;
   }
 

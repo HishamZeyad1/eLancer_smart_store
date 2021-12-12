@@ -19,9 +19,8 @@ class _LaunchScreenState extends State<LaunchScreen> {
     Future.delayed(Duration(seconds: 3),(){
       SharedPrefController().loggedIn
           ? Navigator.pushReplacementNamed(context, '/main_screen')
-          : Navigator.pushReplacementNamed(context, '/login');
+          : Navigator.pushReplacementNamed(context, '/on_boarding');
     });
-
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/widgets/AppTextField.dart';
 import 'package:smart_store/widgets/LabelTextField.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class changePassword extends StatefulWidget {
   // const NewPassword({Key? key}) : super(key: key);
@@ -54,7 +55,9 @@ class _changePasswordState extends State<changePassword> with Helpers {
         //       ),
         //     )),
         title: Text(
-          "Change Password",
+          // "Change Password",
+          AppLocalizations.of(context)!.changepassword,
+
           style: TextStyle(color: Colors.white),
         ),
         // backgroundColor: Colors.transparent,
@@ -76,36 +79,36 @@ class _changePasswordState extends State<changePassword> with Helpers {
           // SvgPicture.asset('images/Lock-logo.svg'),
           Column(
             children: [
-              LabelTextField("Current Password"),
+              LabelTextField(AppLocalizations.of(context)!.currentpassword, /*"Current Password"*/),
               SizedBox(
                 height: 20.h,
               ),
               AppTextField(controller: _oldPasswordTextController, obsure: true,
-                hintText: 'Enter Current Password',
+                hintText:AppLocalizations.of(context)!.currentpasswordhint, /*'Enter Current Password'*/
                 keyboardType: TextInputType.visiblePassword,
               ),
               SizedBox(
                 height: 20.h, //28.h,
               ),
-              LabelTextField("New Password"),
+              LabelTextField(AppLocalizations.of(context)!.newpassword, /*"New Password"*/),
               SizedBox(
                 height: 20.h,
               ),
               AppTextField(controller: _newPasswordTextController, obsure: true,
-                hintText: 'Enter New Password',
+                hintText:AppLocalizations.of(context)!.newpasswordhint, /*'Enter New Password',*/
                 keyboardType: TextInputType.visiblePassword,
                 // obsure: true,
               ),
               SizedBox(
                 height: 20.h,
               ),
-              LabelTextField("Confirm Password"),
+              LabelTextField(AppLocalizations.of(context)!.confirmpassword, /*"Confirm Password"*/),
               SizedBox(
                 height: 20.h,
               ),
               AppTextField(
                 controller: _confirmPasswordTextController, obsure: true,
-                hintText: 'Enter confirm Password',
+                hintText:AppLocalizations.of(context)!.confirmpasswordhint, //'Enter confirm Password',
                 keyboardType: TextInputType.visiblePassword,
                 // obsure: true,
               ),
@@ -122,7 +125,7 @@ class _changePasswordState extends State<changePassword> with Helpers {
             },
             child: Container(
                 width: double.infinity,
-                child: Text("Change password", style: TextStyle(
+                child: Text(AppLocalizations.of(context)!.changepassword,/*"Change password"*/ style: TextStyle(
                     fontSize: 18, fontWeight: FontWeight.w600),)),
             style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(229, 69, 0, 0.81),

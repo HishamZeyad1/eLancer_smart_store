@@ -3,10 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_store/api/controllers/category_api_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/sub-category.dart';
 import 'package:smart_store/screens/product_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SubCategoryScreen extends StatefulWidget {
   late int id;
 
@@ -30,6 +31,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> with Helpers{
 
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
     return Scaffold(
       backgroundColor: Color.fromRGBO(242, 242, 243, 1),
       appBar: AppBar(
@@ -47,7 +49,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> with Helpers{
         centerTitle: true,
         // leadingWidth: 1,
         // title:Text("dlldl "),
-        title: Text('Sub Categories'),
+        title: Text(/*'Sub Categories'*/AppLocalizations.of(context)!.subCategory),
         // actions: [
         //   IconButton(
         //       onPressed: () {},
@@ -168,11 +170,13 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> with Helpers{
                                 alignment: Alignment.bottomLeft,
                                 child: Text(
                                   // "Tops",
-                                  subCategories[index].nameEn,
+                                  lang=='en'?subCategories[index].nameEn:subCategories[index].nameAr,
+
                                   style: TextStyle(
                                     fontSize: 18.sp,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w600,
+                                    // fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                   // textAlign: TextAlign.justify,
                                 ),

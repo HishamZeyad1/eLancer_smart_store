@@ -13,6 +13,7 @@ import 'package:smart_store/models/home.dart';
 import 'package:smart_store/models/product.dart';
 import 'package:smart_store/models/selected_widget.dart';
 import 'package:smart_store/models/slider.dart';
+import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/screens/Home/categories.dart';
 import 'package:smart_store/screens/Home/image_slider.dart';
 import 'package:smart_store/screens/category_screen.dart';
@@ -35,13 +36,7 @@ class _MainScreenState extends State<MainScreen> {
   int selectedCategory = 1;
   int _currentIndex = 0;
 
-  List<SelectedWidget> _selectedWidget = [
-    SelectedWidget(title: "Home", widget: HomeWidget()),
-    SelectedWidget(title: "Categories", widget: CategoryWidget()),
-    SelectedWidget(title: "Favorite", widget: FavoriteWidget()),
-    SelectedWidget(title: "Profile", widget: ProfileWidget()),
-
-  ];
+  List<SelectedWidget> _selectedWidget=[] ;
   late Future<Home?> _future;
   Home _homes = Home();
   List<Sliders> sliders = <Sliders>[];
@@ -69,6 +64,12 @@ class _MainScreenState extends State<MainScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    _selectedWidget = [
+      SelectedWidget(title:AppLocalizations.of(context)!.home, widget: HomeWidget()),
+      SelectedWidget(title:AppLocalizations.of(context)!.categories, widget: CategoryWidget()),
+      SelectedWidget(title:AppLocalizations.of(context)!.favorite, widget: FavoriteWidget()),
+      // SelectedWidget(title: "Profile", widget: ProfileWidget()),
+    ];
     return Scaffold(
       drawer: Container(
           color: Colors.white,
@@ -92,7 +93,8 @@ class _MainScreenState extends State<MainScreen> {
                   width: 20.w,
                 ),
                 Text(
-                  AppLocalizations.of(context)!.introduction,
+                  // AppLocalizations.of(context)!.usersname,
+                  SharedPrefController().fullName,
                   // "Eleanor Pena",
                   style: TextStyle(
                       fontSize: 18,
@@ -112,7 +114,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           //68.h
           AppListTile(
-            title: "change profile", //"My Order",
+            title: AppLocalizations.of(context)!.changeprofile,//"change profile", //"My Order",
             leading: Icons.card_giftcard_outlined,
             trailing: Icons.arrow_forward_ios,
             onclick: () {
@@ -123,7 +125,7 @@ class _MainScreenState extends State<MainScreen> {
             height: 8.h,
           ),
           AppListTile(
-            title: "change password", //"My returns",
+            title: AppLocalizations.of(context)!.changepassword,//"change password", //"My returns",
             leading: Icons.assignment_return_outlined,
             trailing: Icons.arrow_forward_ios,
             onclick: () {
@@ -134,7 +136,7 @@ class _MainScreenState extends State<MainScreen> {
             height: 8.h,
           ),
           AppListTile(
-            title: 'change language', //"Personal details",
+            title: AppLocalizations.of(context)!.changelanguage,//'change language', //"Personal details",
             leading: Icons.perm_device_information,
             trailing: Icons.arrow_forward_ios,
             onclick: () {
@@ -148,7 +150,7 @@ class _MainScreenState extends State<MainScreen> {
             height: 8.h,
           ),
           AppListTile(
-            title: 'About App', //"Payment methods",
+            title: AppLocalizations.of(context)!.aboutapp,//'About App', //"Payment methods",
             leading: Icons.account_balance_wallet_outlined,
             trailing: Icons.arrow_forward_ios,
             onclick: () {
@@ -170,7 +172,7 @@ class _MainScreenState extends State<MainScreen> {
           //   height: 8.h,
           // ),
       AppListTile(
-      title: "Contact",
+      title: AppLocalizations.of(context)!.contact1,//"Contact",
       leading: Icons.chat_outlined,
       trailing: Icons.arrow_forward_ios,
           onclick: (){
@@ -181,7 +183,7 @@ class _MainScreenState extends State<MainScreen> {
     height: 8.h,
     ),
     AppListTile(
-    title: "FAQS",
+    title: AppLocalizations.of(context)!.faqs,//"FAQS",
     leading: Icons.chat_outlined,
     trailing: Icons.arrow_forward_ios,
     onclick: () {
@@ -192,7 +194,7 @@ class _MainScreenState extends State<MainScreen> {
     height: 8.h,
     ),
     AppListTile(
-    title: "Log out",
+    title: AppLocalizations.of(context)!.logout,//"Log out",
     leading: Icons.logout,
     trailing: Icons.arrow_forward_ios,
     onclick: () {
@@ -279,7 +281,7 @@ class _MainScreenState extends State<MainScreen> {
     Icons.home_outlined,
     size: 30.h,
     ),
-    label: "Home"),
+    label: AppLocalizations.of(context)!.home/*"Home"*/),
     BottomNavigationBarItem(
     activeIcon: Icon(
     Icons.category,
@@ -289,7 +291,7 @@ class _MainScreenState extends State<MainScreen> {
     Icons.category_outlined,
     size: 25.h,
     ),
-    label: "Category"),
+    label:AppLocalizations.of(context)!.categories /*"Category"*/),
     BottomNavigationBarItem(
     activeIcon: Icon(
     Icons.favorite,
@@ -299,7 +301,7 @@ class _MainScreenState extends State<MainScreen> {
     Icons.favorite_outline,
     size: 30.h,
     ),
-    label: "Favorit",
+    label:AppLocalizations.of(context)!.favorite /*"Favorit"*/,
     ),
     // BottomNavigationBarItem(
     // activeIcon: Icon(

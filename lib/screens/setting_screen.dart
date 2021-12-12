@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/prefs/shared_pref_controller.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Setting extends StatefulWidget {
   const Setting({Key? key}) : super(key: key);
 
@@ -19,7 +19,7 @@ class _SettingState extends State<Setting> {
     return Scaffold(
       // backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text("Setting"),
+        title: Text(/*"Setting"*/AppLocalizations.of(context)!.setting),
         backgroundColor: Color.fromRGBO(229, 69, 0, 0.81),
         centerTitle: true,
       ),
@@ -27,8 +27,8 @@ class _SettingState extends State<Setting> {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
         children: [
           Text(
-            "Language",
-            // AppLocalizations.of(context)!.language,
+            // "Language",
+            AppLocalizations.of(context)!.language,
             style: TextStyle(
                 fontSize: 23.sp,
                 color: Colors.black,
@@ -38,7 +38,7 @@ class _SettingState extends State<Setting> {
             height: 5.h,
           ),
           RadioListTile<String>(
-            title: Text('en'/*AppLocalizations.of(context)!.english*/),
+            title: Text(/*'en'*/AppLocalizations.of(context)!.english),
             value: 'en',
             groupValue: _language,
             onChanged: (String? value) {
@@ -55,7 +55,7 @@ class _SettingState extends State<Setting> {
             },
           ),
           RadioListTile<String>(
-            title: Text('ar'/*AppLocalizations.of(context)!.arabic*/),
+            title: Text(/*'ar'*/AppLocalizations.of(context)!.arabic),
             value: 'ar',
             groupValue: _language,
             onChanged: (String? value) {
@@ -75,8 +75,8 @@ class _SettingState extends State<Setting> {
             height: 10.h,
           ),
           Text(
-            "About App",
-            // AppLocalizations.of(context)!.aboutapp,
+            // "About App",
+            AppLocalizations.of(context)!.aboutapp,
             style: TextStyle(
                 fontSize: 23.sp,
                 color: Colors.black,
@@ -88,8 +88,8 @@ class _SettingState extends State<Setting> {
           Column(
             children: [
               Text(
-                "The daily expense management application allows the user to track the sources of income and the financial value of each source of income as well as the categories that are consumed and the financial value that is consumed for each category.",
-                // AppLocalizations.of(context)!.appdescribtion1,
+                // "The daily expense management application allows the user to track the sources of income and the financial value of each source of income as well as the categories that are consumed and the financial value that is consumed for each category.",
+                AppLocalizations.of(context)!.appdescribtion1,
                 style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.black45,
@@ -99,8 +99,8 @@ class _SettingState extends State<Setting> {
                 height: 5.h,
               ),
               Text(
-                "It allows the user to add revenue sources with their financial value, consumption categories, and consumption value. The total revenue value, consumption value, savings value, and graphical charts are displayed.",
-                // AppLocalizations.of(context)!.appdescribtion2,
+                // "It allows the user to add revenue sources with their financial value, consumption categories, and consumption value. The total revenue value, consumption value, savings value, and graphical charts are displayed.",
+                AppLocalizations.of(context)!.appdescribtion2,
                 style: TextStyle(
                     fontSize: 18.sp,
                     color: Colors.black45,
@@ -118,8 +118,8 @@ class _SettingState extends State<Setting> {
             height: 20.h,
           ),
           Text(
-            "About Devloper",
-            // AppLocalizations.of(context)!.aboutdeveloper,
+            // "About Devloper",
+            AppLocalizations.of(context)!.aboutdeveloper,
 
             style: TextStyle(
                 fontSize: 23.sp,
@@ -138,8 +138,8 @@ class _SettingState extends State<Setting> {
             child: ListTile(
                 leading: Icon(Icons.developer_mode),
                 title: Text(
-                  'Hisham Zeyad',
-                  // AppLocalizations.of(context)!.developername,
+                  // 'Hisham Zeyad',
+                  AppLocalizations.of(context)!.developername,
 
                   style: TextStyle(
                     fontWeight: FontWeight.normal,

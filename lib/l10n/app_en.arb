@@ -1,3 +1,95 @@
 {
-  "introduction":"Daily Expense"
+  "introduction":"Smart Store",
+  "login": "Login",
+  "name": "Name",
+  "namehint": "Enter Your name",
+  "phonenumber": "Phone Number",
+  "phonenumberhint": "Enter Your phone number",
+  "password": "Password",
+  "passwordhint": "Enter Your password",
+  "gender": "Gender",
+  "male": "Male",
+  "female":"Female",
+  "city": "City",
+  "cityhint": "select a city",
+  "createaccount": "Create Account",
+  "ploicy": "By signing up,  agree to these",
+  "conditions": "Conditions",
+  "and": "and",
+  "term": "Terms of Use",
+  "forget": "Forget Your password",
+  "register": "Register",
+  "haveaccount": "Don't have an account?",
+
+  "verifyaccount": "Verify Account",
+  "verifyhint":"Please enter the 4 digit code sent to",
+  "yourphone": "your phone: ",
+  "resend": "Reset password",
+
+  "forgetpassword": "Forget Password",
+  "forgethint": "Enter the mobile phone or associated with your account",
+  "tryanother": "Try another way",
+  "next": "Next",
+  "resetpassword": "Reset Password",
+  "newpassword": "New Password",
+  "newpasswordhint": "Enter new Password",
+  "confirmpassword": "Confirm Password",
+  "confirmpasswordhint": "Enter new Password",
+
+  "home": "Home",
+  "categories": "Categories",
+  "favorite": "Favorite",
+  "category": "Category",
+  "latestproduct": "Latest Products",
+  "famousproduct": "Famous Products",
+  "seeall": "see all",
+
+  "changeprofile": "change profile",
+  "changepassword": "change password",
+  "changelanguage": "change language",
+  "aboutapp": "about app",
+  "contact1": "Contact",
+  "course": "Elancer Flutter",
+
+  "faqs": "FAQS",
+  "logout": "Log out",
+
+  "currentpassword": "Current Password",
+  "currentpasswordhint": "Enter Your Current Password",
+  "changepassword": "Change Password",
+
+  "usersname": "User's Name",
+  "usersgender": "User's Gender",
+
+
+  "subject": "Subject",
+  "subjecthint": "Enter Your Subject",
+  "message": "Message",
+  "messagehint": "Enter Your Message",
+  "send": "Send",
+
+
+
+
+  "language": "Language",
+  "english": "English",
+  "arabic": "Arabic",
+  "aboutapp": "About App",
+  "aboutdeveloper": "About Developer",
+  "developername": "Hisham Zeyad",
+  "fullnamedeveloper": "Hisham Al Belbeisi",
+  "developerJob": "Flutter Developer",
+  "email": "Email",
+  "developerphonenumber": "Phone Number",
+  "contact": "Connect with us",
+  "appdescribtion1": "A smart store integrates intelligent retail technologies—such as interactive kiosks, smart shelves, smart digital signage and other digital solutions—to enable more personalized, frictionless and immersive shopping experiences.",
+  "appdescribtion2": "Using AI and analytics, these technologies learn customer behavior to enable real-time optimizations, gauge the success of promotional strategies, ensure products are in stock and on shelves, and deliver more convenient and exciting ways to shop.",
+
+  "setting": "Setting",
+
+  "description": "Description",
+  "addtocart": "Add To Cart",
+  "subCategory": "SubCategories",
+  "product": "Products",
+  "productdetials": "Product Detials"
 }

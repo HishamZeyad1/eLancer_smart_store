@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_notifier.dart';
 import 'package:smart_store/get/favorite_getx_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/base_api.dart';
 import 'package:smart_store/models/product.dart';
@@ -21,6 +22,8 @@ class _FavoriteWidgetState extends State<FavoriteWidget> with Helpers {
 
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
+
     return Container(
       child: GetX<FavoriteGetxController>(
         builder: (controller) {
@@ -85,7 +88,8 @@ class _FavoriteWidgetState extends State<FavoriteWidget> with Helpers {
                                   Text(
                                     // products[index].nameEn,textAlign: TextAlign.start,
                                     // "Strappy top with lace trim detail fkfkfkf fkfkfkf fkfkk",
-                                    controller.favorite[index].product.nameEn,
+                                    lang=='en'?controller.favorite[index].product.nameEn:controller.favorite[index].product.nameAr,
+
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 3,
                                     style: TextStyle(

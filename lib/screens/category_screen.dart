@@ -3,8 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_store/api/controllers/category_api_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/models/category.dart';
 import 'package:smart_store/screens/main_index_widget/category_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);
@@ -27,6 +29,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
+
     return Scaffold(
       backgroundColor: const Color.fromRGBO(242, 242, 243, 1),
       appBar: AppBar(
@@ -44,7 +48,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         centerTitle: true,
         // leadingWidth: 1,
         // title:Text("dlldl "),
-        title: Text('Categories',),
+        title: Text(AppLocalizations.of(context)!.categories,/*'Categories',*/),
         // actions: [
         //   IconButton(
         //       onPressed: () {},

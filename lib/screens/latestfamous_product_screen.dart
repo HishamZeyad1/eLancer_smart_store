@@ -3,11 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_store/api/controllers/category_api_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/models/category.dart';
 import 'package:smart_store/models/product.dart';
 import 'package:smart_store/screens/main_index_widget/category_widget.dart';
 import 'package:smart_store/screens/product_details_screen.dart';
 import 'package:smart_store/screens/product_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LatestFamousProductScreen extends StatefulWidget {
   // const CategoryScreen({Key? key}) : super(key: key);
@@ -33,6 +35,8 @@ class _LatestFamousProductScreenState extends State<LatestFamousProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
+
     return Scaffold(
       backgroundColor: const Color.fromRGBO(242, 242, 243, 1),
       appBar: AppBar(
@@ -50,7 +54,8 @@ class _LatestFamousProductScreenState extends State<LatestFamousProductScreen> {
         centerTitle: true,
         // leadingWidth: 1,
         // title:Text("dlldl "),
-        title: Text(widget.type==1?'Latest Product':'Famous Product',),
+        title: Text(widget.type==1?AppLocalizations.of(context)!.latestproduct:AppLocalizations.of(context)!.famousproduct,
+/*,'Latest Product':'Famous Product'*/),
         // actions: [
         //   IconButton(
         //       onPressed: () {},
@@ -88,7 +93,7 @@ class _LatestFamousProductScreenState extends State<LatestFamousProductScreen> {
                 alignment: Alignment.bottomLeft,
                 child: Text(
                   // "Tops",
-                  products[index].nameEn,
+                  lang=='en'?products[index].nameEn:products[index].nameAr,
                   style: TextStyle(
                     fontSize: 18.sp,
                     // color: Colors.white,

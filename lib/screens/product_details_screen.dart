@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_store/api/controllers/category_api_controller.dart';
 import 'package:smart_store/api/controllers/rate_api_controller.dart';
 import 'package:smart_store/get/favorite_getx_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/get/product_getx_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/base_api.dart';
@@ -14,7 +15,7 @@ import 'package:smart_store/models/product.dart';
 import 'package:smart_store/models/product_details.dart';
 import 'package:smart_store/models/slider.dart';
 import 'package:smart_store/screens/Home/image_slider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ProductDetailsScreen extends StatefulWidget {
   // const ProductDetailsScreen({Key? key}) : super(key: key);
   late int id;
@@ -53,6 +54,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
+
     /*return Scaffold(
       // extendBodyBehindAppBar: true,
       // appBar: AppBar(
@@ -113,7 +116,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                   elevation: 0,
                   centerTitle: true,
                   title: Text(
-                    "Jacket",
+                    // "Jacket",
+                    AppLocalizations.of(context)!.productdetials,
+
                     style: TextStyle(color: Colors.black),
                   ),
                   actions: [
@@ -172,7 +177,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                           children: [
                             Text(
                               // 'Chequered overshirt',
-                              productsDetails!.product.nameEn,
+                              lang=='en'?
+                              productsDetails!.product.nameEn:productsDetails!.product.nameAr,
                               style: TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600),
                             ),
@@ -336,7 +342,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                         //   height: 16.h,
                         // ),
                         Text(
-                          "Description",
+                          // "Description",
+                            AppLocalizations.of(context)!.description,
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w600,
@@ -360,7 +367,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                                 color: Color.fromRGBO(151, 151, 151, 1)),
                             children: <TextSpan>[
                               TextSpan(
-                                text: productsDetails!.product.infoEn,
+                                text: lang=='en'?productsDetails!.product.infoEn:productsDetails!.product.infoAr,
                                 // "hequered overshirt with snap-button fastening, front pockets and long sleeves....",
                               ),
                               // TextSpan(
@@ -379,7 +386,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                         ElevatedButton(
                           onPressed: () {},
                           child: Text(
-                            "Add To Cart",
+                            // "Add To Cart",
+                            AppLocalizations.of(context)!.addtocart,
+
                             style: TextStyle(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,

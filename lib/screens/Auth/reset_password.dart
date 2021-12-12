@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_store/api/controllers/auth_api_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
+import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/screens/Auth/new_password.dart';
 import 'package:smart_store/widgets/AppTextField.dart';
 import 'package:smart_store/widgets/LabelTextField.dart';
 import 'package:smart_store/widgets/code_text_field.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ResetPassword extends StatefulWidget {
   // const ResetPassword({Key? key}) : super(key: key);
   late String phoneNumber;
@@ -75,7 +76,8 @@ class _ResetPasswordState extends State<ResetPassword> with Helpers {
               ),
             )),
         title: Text(
-          "Verify Account",
+          // "Verify Account",
+            AppLocalizations.of(context)!.verifyaccount,
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
@@ -104,7 +106,8 @@ class _ResetPasswordState extends State<ResetPassword> with Helpers {
           // Text('Enter the email address or associated with your account'),
 
           LabelTextField(
-            'Please enter the 4 digit code sent to',
+            // 'Please enter the 4 digit code sent to',
+            AppLocalizations.of(context)!.verifyhint,
             textAlign: TextAlign.center,
           ),
 
@@ -112,7 +115,8 @@ class _ResetPasswordState extends State<ResetPassword> with Helpers {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LabelTextField(
-                'your phone: ',
+                // 'your phone: ',
+                AppLocalizations.of(context)!.yourphone,
                 textAlign: TextAlign.end,
                 width: 100.w,
               ),
@@ -212,12 +216,13 @@ class _ResetPasswordState extends State<ResetPassword> with Helpers {
             height: 24.h,
           ),
           LabelTextField(
-            "Resend code",
+            // "Resend code",
+              AppLocalizations.of(context)!.resend,
             color: Color.fromRGBO(229, 69, 0, 0.81),
             textAlign: TextAlign.center,
           ),
           SizedBox(
-            height: 100.h, //40
+            height: 70.h, //40
           ),
           ElevatedButton(
             onPressed: ()async {
@@ -234,7 +239,7 @@ class _ResetPasswordState extends State<ResetPassword> with Helpers {
             child: Container(
                 width: double.infinity,
                 child: Text(
-                  widget.prviousPage == 1 ? "Verify Account" : "Reset password",
+                  widget.prviousPage == 1 ? AppLocalizations.of(context)!.verifyaccount:AppLocalizations.of(context)!.resetpassword,//"Verify Account" : "Reset password",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
@@ -337,11 +342,13 @@ class _ResetPasswordState extends State<ResetPassword> with Helpers {
                   NewPassword(phoneNumber: widget.phoneNumber, code: getVerificationCode()),
             ));
       }else{
-        showSnackBar(
-          context: context,
-          message: "Check from verification code",
-          error: true,
-        );
+        // showSnackBar(
+        //   context: context,
+        //   message: "Check from verification code",
+        //   error: true,
+        // );
+        showSnackBar(context: context, message: SharedPrefController().language=='en'?'Check from verification code':'تحقق من كود التفعيل', error: true);
+
       }
     }
 

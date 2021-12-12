@@ -7,6 +7,7 @@ import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/widgets/AppTextField.dart';
 import 'package:smart_store/widgets/LabelTextField.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Contact extends StatefulWidget {
   const Contact({Key? key}) : super(key: key);
 
@@ -39,7 +40,9 @@ class _ContactState extends State<Contact> with Helpers {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Contact",
+          // "Contact",
+          AppLocalizations.of(context)!.contact1,
+
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Color.fromRGBO(229, 69, 0, 0.81),
@@ -48,26 +51,26 @@ class _ContactState extends State<Contact> with Helpers {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         children: [
-          LabelTextField("Subject"),
+          LabelTextField(AppLocalizations.of(context)!.subject, /*"Subject"*/),
           SizedBox(
             height: 20.h,
           ),
           AppTextField(
             controller: _subjectTextController,
-            hintText: "Enter Subject",
+            hintText:AppLocalizations.of(context)!.subjecthint, //"Enter Subject",
             keyboardType: TextInputType.text,
           ),
           SizedBox(
             height: 20.h,
           ),
-          LabelTextField("Message"),
+          LabelTextField(AppLocalizations.of(context)!.message, /*"Message"*/),
           SizedBox(
             height: 20.h,
           ),
           Container(
             child: AppTextField(
               controller: _messageTextController,
-              hintText: "Enter message... ",
+              hintText: AppLocalizations.of(context)!.messagehint,//"Enter message... ",
               keyboardType: TextInputType.text,
               maxline: 7,
             ),
@@ -86,7 +89,8 @@ class _ContactState extends State<Contact> with Helpers {
               child: Container(
                   width: double.infinity,
                   child: Text(
-                    "Send ",
+                    // "Send ",
+                    AppLocalizations.of(context)!.send,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   )),
               style: ElevatedButton.styleFrom(
