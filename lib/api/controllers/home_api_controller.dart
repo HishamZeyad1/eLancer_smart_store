@@ -18,13 +18,32 @@ class HomeApiController with Helpers {
 
 
   Future<Home?> getHome() async {
-    print("================================");
+    print("===============getHome=================");
     var url = Uri.parse(ApiSettings.home);
-    var response = await http.get(url, headers: {
-      HttpHeaders.authorizationHeader: SharedPrefController().token,
-      HttpHeaders.acceptHeader: 'application/json',
-      HttpHeaders.acceptLanguageHeader:SharedPrefController().language
-    });
+
+    print(SharedPrefController().token);
+    var response;
+    String token=SharedPrefController().token;
+
+    // try {
+      response = await http.get(url, headers: {
+        // HttpHeaders.authorizationHeader: SharedPrefController().token,
+        // HttpHeaders.authorizationHeader: "Bearer ${SharedPrefController().token}",
+        'Authorization':'$token',
+        HttpHeaders.acceptHeader: 'application/json',
+        HttpHeaders.acceptLanguageHeader:SharedPrefController().language
+      });
+    // response = await http.get(url, headers: {
+    //   // 'Content-Type': 'application/json',
+    //   // 'Accept': 'application/json',
+    //   'Authorization': '$token',
+    // });
+      print("No Error");
+    // }
+    // catch(e) {
+    //   print(e.toString());
+    // }
+    print("No Error");
     print(response.statusCode);
     print(response.body);
 
@@ -34,12 +53,13 @@ class HomeApiController with Helpers {
      print(jsonDecode1);
 
      var dataJson = jsonDecode(response.body)['data'];
+
      // var categoriesJsonArray = jsonDecode(response.body)['data']['categories'] as List;
      // var latest_productsJsonArray = jsonDecode(response.body)['data']['latest_products'] as List;
      // var famous_productsJsonArray = jsonDecode(response.body)['data']['famous_products'] as List;
      print("==============Home.fromJson===============");
-     var s=Home.fromJson(dataJson);
-     print(s.famousProducts);
+     var s=dataJson!=null?Home.fromJson(dataJson):null;
+     // print(s.famousProducts);
      return s;
      // return dataJson
      //     .map((jsonObject) => Home.fromJson(jsonObject));

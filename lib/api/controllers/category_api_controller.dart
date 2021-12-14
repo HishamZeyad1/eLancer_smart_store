@@ -12,10 +12,12 @@ import 'package:smart_store/prefs/shared_pref_controller.dart';
 
 class CategoryApiController{
   Future<List<Category>> Categories() async {
+    String token=SharedPrefController().token;
     print("================================");
     var url = Uri.parse(ApiSettings.categories);
     var response = await http.get(url, headers: {
-      HttpHeaders.authorizationHeader: SharedPrefController().token,
+    'Authorization':'${SharedPrefController().token}',
+      // HttpHeaders.authorizationHeader: SharedPrefController().token,
       HttpHeaders.acceptHeader: 'application/json',
       'lang': SharedPrefController().language
     });
@@ -35,10 +37,13 @@ class CategoryApiController{
     return [];
   }
   Future<List<SubCategory>> subCategories(String id) async {
+    // String token=SharedPrefController().token;
+
     print("================================");
     var url = Uri.parse(ApiSettings.subCategories+id);
     var response = await http.get(url, headers: {
-      HttpHeaders.authorizationHeader: SharedPrefController().token,
+      'Authorization':'${SharedPrefController().token}',
+      // HttpHeaders.authorizationHeader: SharedPrefController().token,
       HttpHeaders.acceptHeader: 'application/json',
       'lang': SharedPrefController().language
     });
@@ -57,7 +62,9 @@ class CategoryApiController{
     print("================================");
     var url = Uri.parse(ApiSettings.products+id);
     var response = await http.get(url, headers: {
-      HttpHeaders.authorizationHeader: SharedPrefController().token,
+      'Authorization':'${SharedPrefController().token}',
+
+      // HttpHeaders.authorizationHeader: SharedPrefController().token,
       HttpHeaders.acceptHeader: 'application/json',
       'lang': SharedPrefController().language
     });
@@ -78,7 +85,8 @@ class CategoryApiController{
     print("===========productDetails=========");
     var url = Uri.parse(ApiSettings.productDetails+id);
     var response = await http.get(url, headers: {
-      HttpHeaders.authorizationHeader: SharedPrefController().token,
+      'Authorization':'${SharedPrefController().token}',
+      // HttpHeaders.authorizationHeader: SharedPrefController().token,
       HttpHeaders.acceptHeader: 'application/json',
       'lang': SharedPrefController().language
     });

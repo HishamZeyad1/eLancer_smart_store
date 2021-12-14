@@ -65,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     _selectedWidget = [
-      SelectedWidget(title:AppLocalizations.of(context)!.home, widget: HomeWidget()),
+      // SelectedWidget(title:AppLocalizations.of(context)!.home, widget: HomeWidget()),
       SelectedWidget(title:AppLocalizations.of(context)!.categories, widget: CategoryWidget()),
       SelectedWidget(title:AppLocalizations.of(context)!.favorite, widget: FavoriteWidget()),
       // SelectedWidget(title: "Profile", widget: ProfileWidget()),

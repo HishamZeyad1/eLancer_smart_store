@@ -22,7 +22,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> with Helpers {
   @override
   void initState() {
     // TODO: implement initState
-    ss();
+    ss();//is very imporatant don't delete it.
     super.initState();
   }
   void ss()async{

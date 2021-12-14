@@ -19,7 +19,8 @@ class FAQSApiController{
       url,
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
-        HttpHeaders.authorizationHeader: SharedPrefController().token,
+        // HttpHeaders.authorizationHeader: SharedPrefController().token,
+        'Authorization':'${SharedPrefController().token}',
         'lang': SharedPrefController().language
       },
     );
@@ -39,7 +40,9 @@ class FAQSApiController{
     print("================================");
     var url = Uri.parse(ApiSettings.contact);
     var response = await http.post(url, headers: {
-      HttpHeaders.authorizationHeader: SharedPrefController().token,
+      // HttpHeaders.authorizationHeader: SharedPrefController().token,
+      'Authorization':'${SharedPrefController().token}',
+
       HttpHeaders.acceptHeader: 'application/json',
       'lang': SharedPrefController().language
     },body: {

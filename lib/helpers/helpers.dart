@@ -27,7 +27,7 @@ mixin Helpers {
   Widget NoData(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height/2.h,
-      width:MediaQuery.of(context).size.width/2.w,
+      width:MediaQuery.of(context).size.width.w,
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.max,

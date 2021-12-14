@@ -119,7 +119,8 @@ class AuthApiController with Helpers {
   Future<bool> logout() async {
     var url = Uri.parse(ApiSettings.logout);
     var response = await http.get(url, headers: {
-      HttpHeaders.authorizationHeader: SharedPrefController().token,
+      // HttpHeaders.authorizationHeader: SharedPrefController().token,
+      'Authorization':'${SharedPrefController().token}',
       HttpHeaders.acceptHeader: 'application/json',
       'lang': SharedPrefController().language
     });
@@ -232,7 +233,8 @@ class AuthApiController with Helpers {
       //   HttpHeaders.acceptHeader: 'application/json'
       // },
         headers: {
-          HttpHeaders.authorizationHeader: SharedPrefController().token,
+          // HttpHeaders.authorizationHeader: SharedPrefController().token,
+          'Authorization':'${SharedPrefController().token}',
           HttpHeaders.acceptHeader: 'application/json',
           'lang': SharedPrefController().language
         }
@@ -279,7 +281,8 @@ class AuthApiController with Helpers {
       //   HttpHeaders.acceptHeader: 'application/json'
       // },
         headers: {
-          HttpHeaders.authorizationHeader: SharedPrefController().token,
+          // HttpHeaders.authorizationHeader: SharedPrefController().token,
+          'Authorization':'${SharedPrefController().token}',
           HttpHeaders.acceptHeader: 'application/json',
           'lang': SharedPrefController().language
         }

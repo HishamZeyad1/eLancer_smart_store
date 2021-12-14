@@ -351,12 +351,13 @@ class _HomeWidgetState extends State<HomeWidget>with Helpers{
                   // ),
                 ],
               );
-            } else {
+            }
+            else {
               // return Container(
               //     width: double.infinity,
               //     height: 600.h,
               //     child: Text("No Data"));
-              return Loading();
+              return NoData(context);
             }
           }),
     );

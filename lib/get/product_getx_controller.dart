@@ -40,7 +40,7 @@ class ProductGetxController extends GetxController {
     loading.value = true;
     products.value = await _categoryApiController.products(this.id.toString());
     loading.value = false;
-
+    update();
   }
   void ChangeId(int id){
     this.id.value=id;

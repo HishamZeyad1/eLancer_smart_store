@@ -18,7 +18,8 @@ class FavoriteApiController{
       url,
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
-        HttpHeaders.authorizationHeader: SharedPrefController().token,
+        // HttpHeaders.authorizationHeader: SharedPrefController().token,
+        'Authorization':'${SharedPrefController().token}',
         'lang': SharedPrefController().language
       },
     );
@@ -40,7 +41,9 @@ class FavoriteApiController{
     print("================================");
     var url = Uri.parse(ApiSettings.favorite);
     var response = await http.post(url, headers: {
-      HttpHeaders.authorizationHeader: SharedPrefController().token,
+      // HttpHeaders.authorizationHeader: SharedPrefController().token,
+      'Authorization':'${SharedPrefController().token}',
+
       HttpHeaders.acceptHeader: 'application/json',
       'lang':SharedPrefController().language
     },body: {

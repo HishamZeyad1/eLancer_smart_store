@@ -15,7 +15,8 @@ class RateApiController{
     print("================================");
     var url = Uri.parse(ApiSettings.rating);
     var response = await http.post(url, headers: {
-      HttpHeaders.authorizationHeader: SharedPrefController().token,
+      // HttpHeaders.authorizationHeader: SharedPrefController().token,
+      'Authorization':'${SharedPrefController().token}',
       HttpHeaders.acceptHeader: 'application/json',
       'lang': SharedPrefController().language
     },body: {

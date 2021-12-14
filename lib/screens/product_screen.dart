@@ -40,10 +40,13 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
   void initState() {
     // TODO: implement initState
     _future = CategoryApiController().products(widget.id.toString());
-    ProductGetxController.to.readProduct(widget.id);
-
+    // ProductGetxController.to.readProduct(widget.id);
+    ss();
     isFavorite = false;
     super.initState();
+  }
+  void ss() async{
+    await ProductGetxController.to.readProduct(widget.id);
   }
 
 
