@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_store/api/controllers/auth_api_controller.dart';
 import 'package:smart_store/api/controllers/city_api_controller.dart';
+import 'package:smart_store/get/language_getx_controller.dart';
 import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/city.dart';
 import 'package:smart_store/models/user.dart';
@@ -11,7 +12,7 @@ import 'package:smart_store/screens/Auth/reset_password.dart';
 import 'package:smart_store/widgets/AppTextField.dart';
 import 'package:smart_store/widgets/LabelTextField.dart';
 import 'package:smart_store/widgets/LoginAction.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
@@ -56,6 +57,7 @@ class _RegisterState extends State<Register> with Helpers {
 
   @override
   Widget build(BuildContext context) {
+    String lang=LanguageGetxController.to.language.value;
     // getCities();
     return Scaffold(
       // backgroundColor: Color.fromRGBO(151, 151, 151, 1),
@@ -71,7 +73,8 @@ class _RegisterState extends State<Register> with Helpers {
             )),
 
         title: Text(
-          "Rgister",
+          // "Rgister",
+          AppLocalizations.of(context)!.register,
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
@@ -141,41 +144,41 @@ class _RegisterState extends State<Register> with Helpers {
           SizedBox(
             height: 22.h,
           ),
-          LabelTextField("Name"),
+          LabelTextField(AppLocalizations.of(context)!.name, /*"Name"*/),
           SizedBox(
             height: 12.h,
           ),
           AppTextField(
-            hintText: 'Enter your name', controller: _fullNameTextController,
+            hintText:AppLocalizations.of(context)!.namehint /*'Enter your name'*/, controller: _fullNameTextController,
             keyboardType: TextInputType.visiblePassword,
           ),
           SizedBox(
-            height: 28.h, //28.h,
+            height: 20.h, //28.h,
           ),
-          LabelTextField("Phone Number"),
+          LabelTextField(AppLocalizations.of(context)!.phonenumber/*"Phone Number"*/),
           SizedBox(
             height: 12.h,
           ),
           AppTextField(controller: _phoneTextController,
-            hintText: 'Enter your Phone Number',
+            hintText: AppLocalizations.of(context)!.phonenumberhint/*'Enter your Phone Number'*/,
             keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(
-            height: 28.h, //28.h,
+            height: 20.h, //28.h,
           ),
-          LabelTextField("Password"),
+          LabelTextField(AppLocalizations.of(context)!.password/*"Password"*/),
           SizedBox(
             height: 12.h,
           ),
           AppTextField(controller: _passwordTextController,
-            hintText: 'Enter your password',
+            hintText: AppLocalizations.of(context)!.passwordhint/*'Enter your password'*/,
             keyboardType: TextInputType.visiblePassword,
             obsure: true,
           ),
           SizedBox(
-            height: 28.h, //28.h,
+            height: 20.h, //28.h,
           ),
-          LabelTextField("Gender"),
+          LabelTextField(AppLocalizations.of(context)!.gender/*"Gender"*/),
           SizedBox(
             height: 12.h,
           ),
@@ -194,7 +197,7 @@ class _RegisterState extends State<Register> with Helpers {
                   child: RadioListTile(
                     contentPadding: EdgeInsets.zero,
                     value: 'M',
-                    title: Text('Male'),
+                    title: Text(AppLocalizations.of(context)!.male/*'Male'*/),
                     groupValue: _gender,
                     onChanged: (value) {
                       if (value != null && value != _gender) {
@@ -208,7 +211,7 @@ class _RegisterState extends State<Register> with Helpers {
                 Expanded(
                     child: RadioListTile(
                       value: 'F',
-                      title: Text('Female'),
+                      title: Text(AppLocalizations.of(context)!.female/*'Female'*/),
                       groupValue: _gender,
                       onChanged: (value) {
                         if (value != null && value != _gender) {
@@ -221,7 +224,7 @@ class _RegisterState extends State<Register> with Helpers {
               ],
             ),
           ),
-          LabelTextField("City"),
+          LabelTextField(AppLocalizations.of(context)!.city/*"City"*/),
           SizedBox(
             height: 12.h,
           ),
@@ -243,9 +246,9 @@ class _RegisterState extends State<Register> with Helpers {
                         });
                       }
                     },
-                    hint: Text("select a City"),
+                    hint: Text(AppLocalizations.of(context)!.cityhint/*"select a City"*/),
                     items: _cites.map((e) =>DropdownMenuItem(
-                      child: Text(e.nameEn),
+                      child: Text(lang=="en"?e.nameEn:e.nameAr),
                       value: e.id,
                       onTap: () {},
                     ),).toList()
@@ -284,7 +287,7 @@ class _RegisterState extends State<Register> with Helpers {
               //     ResetPassword(prviousPage: 1,phoneNumber: _phoneTextController.text,),));
             },
             child: Container(
-                width: double.infinity, child: Text("Create Account")),
+                width: double.infinity, child: Text(AppLocalizations.of(context)!.createaccount/*"Create Account"*/)),
             style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(229, 69, 0, 0.81),
               padding: EdgeInsets.symmetric(horizontal: 111.w, vertical: 18.h),
@@ -306,20 +309,20 @@ class _RegisterState extends State<Register> with Helpers {
                   color: Color.fromRGBO(151, 151, 151, 1)),
               children: [
                 TextSpan(
-                  text: "By signing up,  agree to these ", /*'Contains variety of'*/
+                  text: AppLocalizations.of(context)!.ploicy,//"By signing up,  agree to these ", /*'Contains variety of'*/
                 ),
                 // TextSpan(text: '   of '),
                 TextSpan(
-                    text: "Conditions" /*'CHOICES'*/,
+                    text:AppLocalizations.of(context)!.conditions, //"Conditions" /*'CHOICES'*/,
                     style: TextStyle(
                         color: Color.fromRGBO(229, 69, 0, 0.81))),
                 TextSpan(
-                  text: " and " /*'CHOICES'*/,
+                  text: " "+AppLocalizations.of(context)!.and+" ",//" and " /*'CHOICES'*/,
                   // style: TextStyle(
                   //     color: Color.fromRGBO(229, 69, 0, 0.81)),
                 ),
                 TextSpan(
-                    text: "Terms of Use" /*'CHOICES'*/,
+                    text:AppLocalizations.of(context)!.term, //"Terms of Use" /*'CHOICES'*/,
                     style: TextStyle(
                         color: Color.fromRGBO(229, 69, 0, 0.81))),
 

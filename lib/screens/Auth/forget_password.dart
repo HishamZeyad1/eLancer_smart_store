@@ -46,7 +46,7 @@ class _ForgetPasswordState extends State<ForgetPassword> with Helpers {
             )),
         title: Text(
           // "Forget Password",
-            AppLocalizations.of(context)!.forget,
+            AppLocalizations.of(context)!.forgetpassword,
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,

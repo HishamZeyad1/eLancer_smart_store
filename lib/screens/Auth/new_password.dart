@@ -196,6 +196,9 @@ class _NewPasswordState extends State<NewPassword> with Helpers {
     );
     print("*****resetPassword*******");
 
-    if (status) Navigator.pushNamed(context, '/main_screen');
+    if (status){
+      bool statuslogin=await AuthApiController().login(context, phoneNumber: widget.phoneNumber, password:_passwordTextController.text);
+      if(statuslogin){ Navigator.pushNamed(context, '/main_screen');}
+      }
   }
 }

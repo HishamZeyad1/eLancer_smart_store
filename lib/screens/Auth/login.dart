@@ -10,7 +10,7 @@ import 'package:smart_store/prefs/shared_pref_controller.dart';
 import 'package:smart_store/widgets/AppTextField.dart';
 import 'package:smart_store/widgets/LabelTextField.dart';
 import 'package:smart_store/widgets/LoginAction.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -151,23 +151,24 @@ class _LoginState extends State<Login> with Helpers{
               // ),
               Column(
                 children: [
-                  LabelTextField("Phone Number"),
+
+                  LabelTextField(AppLocalizations.of(context)!.phonenumber/*"Phone Number"*/),
                   SizedBox(
                     height: 12.h,
                   ),
                   AppTextField(controller: _PhoneTextController,
-                    hintText: 'Enter your Phone Number',
+                    hintText: AppLocalizations.of(context)!.phonenumberhint,//'Enter your Phone Number',
                     keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(
                     height: 15.h,//28.h,
                   ),
-                  LabelTextField("Password"),
+                  LabelTextField(AppLocalizations.of(context)!.password/*"Password"*/),
                   SizedBox(
                     height: 12.h,
                   ),
                   AppTextField(controller:_passwordTextController ,
-                    hintText: 'Enter your password',
+                    hintText: AppLocalizations.of(context)!.passwordhint,//'Enter your password',
                     keyboardType: TextInputType.visiblePassword,
                     obsure: true,
                   ),
@@ -179,7 +180,8 @@ class _LoginState extends State<Login> with Helpers{
                       width: double.infinity,
                       alignment: Alignment.bottomRight,
                       child: Text(
-                        "Forgot your password?",
+                        // "Forgot your password?",
+                          AppLocalizations.of(context)!.forget,
                         style:
                             TextStyle(fontSize:12,fontWeight:FontWeight.w500,color: Color.fromRGBO(229, 69, 0, 0.81)),
                       ),
@@ -194,9 +196,9 @@ class _LoginState extends State<Login> with Helpers{
                       await performLogin();
                       // checkData()?Navigator.pushNamed(context, '/home'):'';
                     },
-                    child: Container(width:double.infinity,child: Text("Log In")),
+                    child: Container(width:double.infinity,child: Text(AppLocalizations.of(context)!.login/*"Log In"*/)),
                     style: ElevatedButton.styleFrom(primary: Color.fromRGBO(151, 151, 151, 1),
-                      padding: EdgeInsets.symmetric(horizontal: 156.w,vertical: 18.h),
+                      padding: EdgeInsets.symmetric(horizontal: 130.w,vertical: 18.h),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -213,14 +215,14 @@ class _LoginState extends State<Login> with Helpers{
                           fontFamily: 'Poppins',
                           fontSize: 12,
                           color: Color.fromRGBO(49, 49, 49, 1)),
-                      text: "Don’t have an account?" ,
+                      text: AppLocalizations.of(context)!.haveaccount,//"Don’t have an account?" ,
                       children: [
                         // TextSpan(
                         //   text: "Don’t have an account? ", /*'Contains variety of'*/
                         // ),
                         // TextSpan(text: '   of '),
                         TextSpan(
-                            text: "Register" /*'CHOICES'*/,
+                            text: ' '+AppLocalizations.of(context)!.register,//"Register" /*'CHOICES'*/,
                             recognizer:_recognizer ,
                             style: TextStyle(
                                 color: Color.fromRGBO(229, 69, 0, 0.81))),

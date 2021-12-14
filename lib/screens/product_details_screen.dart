@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_store/api/controllers/category_api_controller.dart';
+import 'package:smart_store/api/controllers/favorite_api_controller.dart';
 import 'package:smart_store/api/controllers/rate_api_controller.dart';
 import 'package:smart_store/get/favorite_getx_controller.dart';
 import 'package:smart_store/get/language_getx_controller.dart';
@@ -124,10 +125,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                   actions: [
                     IconButton(
                       onPressed: () async {
-                        // await changeFavorite(productsDetails!);
-                        // setState(() { });
+                        await changeFavorite(productsDetails!);
+                        setState(() { });
                       },
-                      icon: isFavorite
+                      icon: productsDetails!.product.isFavorite//isFavorite
                           ? Icon(
                               Icons.favorite,
                               color: Colors.red,
@@ -434,18 +435,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
   }
 
   Future<void> changeFavorite(ProductDetails productDetails) async {
-    Product p = productDetails
-        .product; //Product(id: product.product.id, nameEn: product.product.nameEn, nameAr: product.product.nameAr, infoEn: product.product.infoEn, infoAr: product.product.infoAr, price: product.product.price, quantity: product.product.quantity, overalRate: product.product.overalRate, subCategoryId: product.product.subCategoryId, productRate: product.product.productRate, offerPrice: product.product.offerPrice, isFavorite: product.product.isFavorite, imageUrl: product.product.imageUrl);
+    Product p = productDetails.product; //Product(id: product.product.id, nameEn: product.product.nameEn, nameAr: product.product.nameAr, infoEn: product.product.infoEn, infoAr: product.product.infoAr, price: product.product.price, quantity: product.product.quantity, overalRate: product.product.overalRate, subCategoryId: product.product.subCategoryId, productRate: product.product.productRate, offerPrice: product.product.offerPrice, isFavorite: product.product.isFavorite, imageUrl: product.product.imageUrl);
     BaseApi? bstatus = await FavoriteGetxController.to.ChangeFavorite(p);
+    // BaseApi? newRowId = await FavoriteApiController().favoriteProduct(productDetails.product);
+
     String message;
     if (bstatus != null) {
       message = bstatus.message;
-      await ProductGetxController(productDetails.subCategory.id.toString())
-          .ChangeProductFavorite(p);
+      print("1-onclick->Action");
+      ProductGetxController.to.ChangeProductFavorite(productDetails.product);
+      print("=====================");
+      printData();
+      print("2-complete->Action");
+
+      // await ProductGetxController(productDetails.subCategory.id.toString()).ChangeProductFavorite(p);
       // print("changeFavorite:${b}");
     } else {
       message = 'not don';
     }
     showSnackBar(context: context, message: message, error: !(bstatus != null));
+  }
+  void printData(){
+    for(Product i in ProductGetxController.to.products.value){
+      print(i.id);
+      print(i.isFavorite);
+    }
   }
 }
