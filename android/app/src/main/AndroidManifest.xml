@@ -2,7 +2,7 @@
     package="com.example.smart_store">
    <application
         android:label="smart_store"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/fashion1"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"

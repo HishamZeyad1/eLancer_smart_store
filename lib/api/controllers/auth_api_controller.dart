@@ -37,6 +37,10 @@ class AuthApiController with Helpers {
         context: context,
         message: jsonDecode(response.body)['message'],
       );
+      showSnackBar(
+        context: context,
+        message: jsonDecode(response.body)['code'].toString(),
+      );
       return true;
     } else if (response.statusCode == 400) {
       showSnackBar(
@@ -44,6 +48,7 @@ class AuthApiController with Helpers {
         message: jsonDecode(response.body)['message'],
         error: true,
       );
+
     }
     return false;
   }
@@ -156,6 +161,10 @@ class AuthApiController with Helpers {
     if (response.statusCode == 200) {
       String code = jsonDecode(response.body)['code'].toString();
       print(code);
+      showSnackBar(
+        context: context,
+        message: jsonDecode(response.body)['code'].toString(),
+      );
       return {1: "true", 2: code};
     } else if (response.statusCode == 400) {
       showSnackBar(

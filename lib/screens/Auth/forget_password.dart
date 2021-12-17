@@ -105,11 +105,13 @@ class _ForgetPasswordState extends State<ForgetPassword> with Helpers {
               },
               child: Container(
                   width:double.infinity,//margin: EdgeInsets.symmetric(horizontal:100.w),
-                  child: Text(/*"Next"*/AppLocalizations.of(context)!.next, textAlign: TextAlign.center,style: TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w600),)),
+                  child: Center(
+                    child: Text(/*"Next"*/AppLocalizations.of(context)!.next, textAlign: TextAlign.center,style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w600),),
+                  )),
               style: ElevatedButton.styleFrom(
                 primary: Color.fromRGBO(229, 69, 0, 0.81),
-                padding: EdgeInsets.symmetric(horizontal: 100.w, vertical: 18.h),
+                padding: EdgeInsets.symmetric(/*horizontal: 100.w,*/ vertical: 18.h),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),

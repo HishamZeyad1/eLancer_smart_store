@@ -125,11 +125,13 @@ class _changePasswordState extends State<changePassword> with Helpers {
             },
             child: Container(
                 width: double.infinity,
-                child: Text(AppLocalizations.of(context)!.changepassword,/*"Change password"*/ style: TextStyle(
-                    fontSize: 18, fontWeight: FontWeight.w600),)),
+                child: Center(
+                  child: Text(AppLocalizations.of(context)!.changepassword,/*"Change password"*/ style: TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w600),),
+                )),
             style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(229, 69, 0, 0.81),
-              padding: EdgeInsets.symmetric(horizontal: 100.w, vertical: 18.h),
+              padding: EdgeInsets.symmetric(/*horizontal: 100.w,*/ vertical: 18.h),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),

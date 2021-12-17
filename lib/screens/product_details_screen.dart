@@ -478,10 +478,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
 
       // await ProductGetxController(productDetails.subCategory.id.toString()).ChangeProductFavorite(p);
       // print("changeFavorite:${b}");
+      showSnackBar(context: context, message: message, error: !(bstatus != null));
     } else {
       message = 'not don';
     }
-    showSnackBar(context: context, message: message, error: !(bstatus != null));
+    // showSnackBar(context: context, message: message, error: !(bstatus != null));
   }
 
   void printData() {

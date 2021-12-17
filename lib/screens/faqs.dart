@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_store/api/controllers/faqs_api_controller.dart';
 import 'package:smart_store/get/language_getx_controller.dart';
+import 'package:smart_store/helpers/helpers.dart';
 import 'package:smart_store/models/faqs.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -11,7 +12,7 @@ class FAQSScreen extends StatefulWidget {
   _FAQSScreenState createState() => _FAQSScreenState();
 }
 
-class _FAQSScreenState extends State<FAQSScreen> {
+class _FAQSScreenState extends State<FAQSScreen>with Helpers {
   late Future<List<FAQS>> _future;
   late List<FAQS> faqs = [];
   @override
@@ -42,10 +43,11 @@ class _FAQSScreenState extends State<FAQSScreen> {
         future:_future,
         builder:(context, snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-    return Container(
-    width: double.infinity,
-    height: 600.h,
-    child: CircularProgressIndicator());
+    // return Container(
+    // width: double.infinity,
+    // height: 600.h,
+    // child: CircularProgressIndicator());
+      return Loading();
     }
     else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
         faqs=snapshot.data!;
@@ -69,10 +71,11 @@ class _FAQSScreenState extends State<FAQSScreen> {
               },
               itemCount: faqs.length);
         }else {
-      return Container(
-          width: double.infinity,
-          height: 600.h,
-          child: Text("No Data"));
+      return NoData(context);
+      // return Container(
+      //     width: double.infinity,
+      //     height: 600.h,
+      //     child: Text("No Data"));
     }
         }
       ),

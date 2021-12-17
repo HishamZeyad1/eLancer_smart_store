@@ -99,19 +99,21 @@ class _CategoryWidgetState extends State<CategoryWidget> with Helpers {
                     ),
                     child: Column(
                       children: [
-                        Container(
-                          height: 200.h,
-                          decoration: BoxDecoration(
-                            // border: Border.all(color: Colors.white, width: 4),
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(10)),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    categories[index].imageUrl                                ),
-                                fit: BoxFit.cover),
+                        Expanded(
+                          child: Container(
+                            height: 200.h,
+                            decoration: BoxDecoration(
+                              // border: Border.all(color: Colors.white, width: 4),
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(10)),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      categories[index].imageUrl                                ),
+                                  fit: BoxFit.cover),
+                            ),
+
+
                           ),
-
-
                         ),
                         SizedBox(height: 2.h,),
                         Container(

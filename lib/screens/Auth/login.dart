@@ -196,9 +196,9 @@ class _LoginState extends State<Login> with Helpers{
                       await performLogin();
                       // checkData()?Navigator.pushNamed(context, '/home'):'';
                     },
-                    child: Container(width:double.infinity,child: Text(AppLocalizations.of(context)!.login/*"Log In"*/)),
+                    child: Container(width:double.infinity,child: Center(child: Text(AppLocalizations.of(context)!.login/*"Log In"*/))),
                     style: ElevatedButton.styleFrom(primary: Color.fromRGBO(151, 151, 151, 1),
-                      padding: EdgeInsets.symmetric(horizontal: 130.w,vertical: 18.h),
+                      padding: EdgeInsets.symmetric(/*horizontal: 130.w,*/vertical: 18.h),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),

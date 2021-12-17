@@ -148,7 +148,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> with Helpers{
                         crossAxisCount: 2,
                         mainAxisSpacing: 8, //16,
                         crossAxisSpacing: 8, //16,
-                        childAspectRatio: .8, //190 / 175,
+                        childAspectRatio: .78, //190 / 175,
                       ),
                       itemBuilder: (context, index) =>
                           GestureDetector(
@@ -192,20 +192,22 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> with Helpers{
                               ),
                               child: Column(
                                 children: [
-                                  Container(
-                                    height: 200.h,
-                                    decoration: BoxDecoration(
-                                      // border: Border.all(color: Colors.white, width: 4),
-                                      borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(10)),
-                                      image: DecorationImage(
-                                          image: NetworkImage(
+                                  Expanded(
+                                    child: Container(
+                                      height: 200.h,
+                                      decoration: BoxDecoration(
+                                        // border: Border.all(color: Colors.white, width: 4),
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(10)),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
 
-                                              subCategories[index].imageUrl                                ),
-                                          fit: BoxFit.cover),
+                                                subCategories[index].imageUrl                                ),
+                                            fit: BoxFit.cover),
+                                      ),
+
+
                                     ),
-
-
                                   ),
                                   SizedBox(height: 2.h,),
                                   Container(
@@ -235,8 +237,8 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> with Helpers{
                                             style: TextStyle(
                                                 color: Color.fromRGBO(
                                                     49, 49, 49, 1),
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16.sp),
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14.sp),
                                           ),
                                         ),
                                         // SizedBox(

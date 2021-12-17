@@ -238,17 +238,19 @@ class _ResetPasswordState extends State<ResetPassword> with Helpers {
             }, //checkData(),
             child: Container(
                 width: double.infinity,
-                child: Text(
-                  widget.prviousPage == 1 ? AppLocalizations.of(context)!.verifyaccount:AppLocalizations.of(context)!.resetpassword,//"Verify Account" : "Reset password",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                child: Center(
+                  child: Text(
+                    widget.prviousPage == 1 ? AppLocalizations.of(context)!.verifyaccount:AppLocalizations.of(context)!.resetpassword,//"Verify Account" : "Reset password",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 )),
             style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(229, 69, 0, 0.81),
-              padding: EdgeInsets.symmetric(horizontal: 100.w, vertical: 18.h),
+              padding: EdgeInsets.symmetric(/*horizontal: 100.w,*/ vertical: 18.h),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),

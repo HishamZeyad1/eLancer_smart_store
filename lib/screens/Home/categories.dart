@@ -51,7 +51,7 @@ class _CategoriesState extends State<Categories> {
             crossAxisCount: 2,
             mainAxisSpacing: 16,
             crossAxisSpacing: 16,
-            childAspectRatio:1.08 //272 / 175
+            childAspectRatio:1 //272 / 175
              ),
         itemBuilder: (context, index) =>GestureDetector(
           child:
@@ -98,20 +98,22 @@ class _CategoriesState extends State<Categories> {
             ),
             child: Column(
               children: [
-                Container(
-                  height: 120.h,
-                  decoration: BoxDecoration(
-                    // border: Border.all(color: Colors.white, width: 4),
-                    borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(10)),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                          type==1?categories[index].imageUrl:products[index].imageUrl,
-                        ),
-                        fit: BoxFit.cover),
+                Expanded(
+                  child: Container(
+                    height: 120.h,
+                    decoration: BoxDecoration(
+                      // border: Border.all(color: Colors.white, width: 4),
+                      borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(10)),
+                      image: DecorationImage(
+                          image: NetworkImage(
+                            type==1?categories[index].imageUrl:products[index].imageUrl,
+                          ),
+                          fit: BoxFit.cover),
+                    ),
+
+
                   ),
-
-
                 ),
                 SizedBox(height: 2.h,),
                 Container(

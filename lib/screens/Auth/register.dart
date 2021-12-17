@@ -79,8 +79,9 @@ class _RegisterState extends State<Register> with Helpers {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leadingWidth: 70,
-        titleSpacing: 60,
+        centerTitle: true,
+        // leadingWidth: 70,
+        // titleSpacing: 60,
         // toolbarHeight: 36 + 16,
       ),
       // appBar: AppBar(
@@ -287,10 +288,10 @@ class _RegisterState extends State<Register> with Helpers {
               //     ResetPassword(prviousPage: 1,phoneNumber: _phoneTextController.text,),));
             },
             child: Container(
-                width: double.infinity, child: Text(AppLocalizations.of(context)!.createaccount/*"Create Account"*/)),
+                width: double.infinity, child: Center(child: Text(AppLocalizations.of(context)!.createaccount/*"Create Account"*/))),
             style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(229, 69, 0, 0.81),
-              padding: EdgeInsets.symmetric(horizontal: 111.w, vertical: 18.h),
+              padding: EdgeInsets.symmetric(/*horizontal: 111.w,*/ vertical: 18.h),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),

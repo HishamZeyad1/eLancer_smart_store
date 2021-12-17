@@ -73,7 +73,7 @@ class _LatestFamousProductScreenState extends State<LatestFamousProductScreen>  
             crossAxisCount: 2,
             mainAxisSpacing: 8, //16,
             crossAxisSpacing: 8, //16,
-            childAspectRatio: .8, //190 / 175,
+            childAspectRatio: .77, //190 / 175,
           ),
           itemBuilder: (context, index) => GestureDetector(
             // child: Container(
@@ -115,16 +115,18 @@ class _LatestFamousProductScreenState extends State<LatestFamousProductScreen>  
               ),
               child: Column(
                 children: [
-                  Container(
-                    height: 200.h,
-                    decoration: BoxDecoration(
-                      // border: Border.all(color: Colors.white, width: 4),
-                      borderRadius: BorderRadius.vertical(
-                         top: Radius.circular(10)),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              products[index].imageUrl,                          ),
-                          fit: BoxFit.cover),
+                  Expanded(
+                    child: Container(
+                      height: 200.h,
+                      decoration: BoxDecoration(
+                        // border: Border.all(color: Colors.white, width: 4),
+                        borderRadius: BorderRadius.vertical(
+                           top: Radius.circular(10)),
+                        image: DecorationImage(
+                            image: NetworkImage(
+                                products[index].imageUrl,                          ),
+                            fit: BoxFit.cover),
+                      ),
                     ),
                   ),
                   SizedBox(height: 1.4.h,),
