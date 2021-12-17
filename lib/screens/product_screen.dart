@@ -42,7 +42,7 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
     _future = CategoryApiController().products(widget.id.toString());
     // ProductGetxController.to.readProduct(widget.id);
     ss();
-    isFavorite = false;
+    // isFavorite = false;
     super.initState();
   }
   void ss() async{
@@ -55,7 +55,6 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
   Widget build(BuildContext context) {
     String lang=LanguageGetxController.to.language.value;
     // ProductGetxController.to.ChangeId(widget.id);//Get.put<ProductGetxController>(ProductGetxController(widget.id.toString()));
-
     print("Build");
     print(isFavorite);
     return Scaffold(
@@ -160,106 +159,14 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
         child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
             children: [
-              // Container(
-              //   height: 50,
-              //   child: SingleChildScrollView(scrollDirection: Axis.horizontal,
-              //     child: Row(
-              //       // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //       //     crossAxisCount: 1,mainAxisSpacing: 10.h,
-              //       //     // crossAxisSpacing: 10.w,
-              //       //     /*childAspectRatio: 0.8*/),
-              //       children: [
-              //         ElevatedButton(
-              //           onPressed: () {},
-              //           child: Text(
-              //             "All",
-              //             style: TextStyle(
-              //                 fontSize: 20.sp,
-              //                 fontWeight: FontWeight.w600,
-              //                 color: Colors.white),
-              //           ),
-              //           style: ElevatedButton.styleFrom(
-              //             padding: EdgeInsets.all(12),
-              //             primary: Color.fromRGBO(229, 69, 0, 0.81),
-              //             // shape:RoundedRectangle(borderRaduis:BorderRadius.all(Radius.circular(10)),),
-              //             shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(20)),
-              //           ),
-              //         ),
-              //         SizedBox(width: 10.w,),
-              //         ElevatedButton(
-              //           onPressed: () {},
-              //           child: Text(
-              //             "Short",
-              //             style: TextStyle(
-              //                 fontSize: 20.sp,
-              //                 fontWeight: FontWeight.w600,
-              //                 color: Colors.white),
-              //           ),
-              //           style: ElevatedButton.styleFrom(
-              //             padding: EdgeInsets.all(12),
-              //             primary: Colors.grey,
-              //             // shape:RoundedRectangle(borderRaduis:BorderRadius.all(Radius.circular(10)),),
-              //             shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(20)),
-              //           ),
-              //         ),
-              //         SizedBox(width: 10.w,),
-              //         ElevatedButton(
-              //           onPressed: () {},
-              //           child: Text(
-              //             "Jacket",
-              //             style: TextStyle(
-              //                 fontSize: 20.sp,
-              //                 fontWeight: FontWeight.w600,
-              //                 color: Colors.white),
-              //           ),
-              //           style: ElevatedButton.styleFrom(
-              //             padding: EdgeInsets.all(12),
-              //             primary: Colors.grey,
-              //             // shape:RoundedRectangle(borderRaduis:BorderRadius.all(Radius.circular(10)),),
-              //             shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(20)),
-              //           ),
-              //         ),
-              //         SizedBox(width: 10.w,),
-              //         ElevatedButton(
-              //           onPressed: () {},
-              //           child: Text(
-              //             "Bantalon Tawal",
-              //             style: TextStyle(
-              //                 fontSize: 20.sp,
-              //                 fontWeight: FontWeight.w600,
-              //                 color: Colors.white),
-              //           ),
-              //           style: ElevatedButton.styleFrom(
-              //             padding: EdgeInsets.all(12),
-              //             primary: Colors.grey,
-              //             // shape:RoundedRectangle(borderRaduis:BorderRadius.all(Radius.circular(10)),),
-              //             shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(20)),
-              //           ),
-              //         ),
-              //         SizedBox(width: 10.w,),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 12.h,
-              // ),
-              // Text(
-              //   "200 items",
-              //   style: TextStyle(
-              //       fontSize: 16, color: Color.fromRGBO(151, 151, 151, 1)),
-              // ),
               SizedBox(
                 height: 12.h,
               ),
               Obx((){
               //   GetX<FavoriteGetxController>(builder: (controller) {
                   if (ProductGetxController.to.loading.value) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Loading();
+                    // return const Center(child: CircularProgressIndicator());
                   }
                   else if (ProductGetxController.to.products.isNotEmpty) {
                     return GridView.builder(
@@ -274,14 +181,8 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
                           childAspectRatio: .75, //190 / 175,
                         ),
                         itemBuilder: (context, index) {
-                          // print("===========products[index].isFavorite===========");
-                          // print("before: $isFavorite");
-                          // isFavorite = controller.products[index].isFavorite;//products[index].isFavorite;
-                          // print("============isFavorite================");
-                          // print("after:$isFavorite");
+
                           print("=================productScreen========================");
-                          // ProductGetxController.to.products.value[]
-                          print(ProductGetxController.to.products[index].isFavorite);
                           return GestureDetector(
                               child: Stack(children: [
                                 Container(
@@ -294,11 +195,7 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
                                   child: Column(
                                     children: [
                                       Container(
-                                        // color: Colors.red,
-                                        // clipBehavior:Clip.antiAlias,
-                                        // padding: EdgeInsets.only(bottom: 12.h, left: 20.w),
-                                        // padding: EdgeInsets.only(top: 12.h, right: 20.w),width: 5,height: 5,
-                                        height: 195.h,
+                                        height: 210.h,
                                         decoration: BoxDecoration(
                                           // border: Border.all(color: Colors.white, width: 4),
                                           borderRadius: BorderRadius.vertical(
@@ -306,154 +203,150 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
                                           image: DecorationImage(
                                               image: NetworkImage(
                                                   ProductGetxController.to.products[index].imageUrl
-                                                // products[index].imageUrl,
-                                                // 'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
                                               ),
                                               fit: BoxFit.cover),
                                         ),
                                       ),
-                                      Container(
+                                      Container(color:Colors.deepOrange.shade300 ,
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 8.w),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 4.h,
-                                            ),
-                                            Text(
-                                              lang=='en'?
-                                              ProductGetxController.to.products[index].nameEn:
-                                              ProductGetxController.to.products[index].nameAr,
-                                              // products[index].nameEn,
-                                              textAlign: TextAlign.start,
-                                              // "Strappy top with lace trim detail",
-                                              style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      49, 49, 49, 1),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 16.sp),
-                                            ),
-                                            SizedBox(
-                                              height: 14.h,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  // '\$20',
-                                                  '\$' +
-                                                      // products[index].price.toString(),
-                                                      ProductGetxController.to.products[index].price.toString(),
+                                        // decoration: BoxDecoration(
+                                        //   // border: Border.all(color: Colors.white, width: 4),
+                                        //   borderRadius: BorderRadius.vertical(
+                                        //       top: Radius.circular(10)),
+                                        // ),
+
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                height: 1.h,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    lang=='en'?
+                                                    ProductGetxController.to.products[index].nameEn:
+                                                    ProductGetxController.to.products[index].nameAr,
+                                                    // products[index].nameEn,
+                                                    textAlign: TextAlign.start,
+                                                    // "Strappy top with lace trim detail",
+                                                    style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            49, 49, 49, 1),
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 16.sp),
+                                                  ),
+                                                  Text(
+                                                    // '\$20',
+                                                    '\$' +
+                                                        // products[index].price.toString(),
+                                                        ProductGetxController.to.products[index].price.toString(),
 
 
-                                                  style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          229, 69, 0, 0.81),
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                      fontSize: 22.sp),
-                                                ),
-                                                // Row(
-                                                //   children: [
-                                                //     CircleAvatar(
-                                                //       radius: 7,
-                                                //       backgroundColor: Colors.red,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 3.w,
-                                                //     ),
-                                                //     CircleAvatar(
-                                                //       radius: 7,
-                                                //       backgroundColor: Colors
-                                                //           .grey,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 3.w,
-                                                //     ),
-                                                //     CircleAvatar(
-                                                //       radius: 7,
-                                                //       backgroundColor: Colors
-                                                //           .green,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 3.w,
-                                                //     ),
-                                                //     CircleAvatar(
-                                                //       radius: 7,
-                                                //       backgroundColor: Colors
-                                                //           .blue,
-                                                //     ),
-                                                //   ],
-                                                // )
-                                                RatingBar.builder(
-                                                  initialRating:ProductGetxController.to.products[index].productRate, //products[index].productRate+0.0,
-                                                  minRating: 0,
-                                                  direction: Axis.horizontal,
-                                                  allowHalfRating: true,
-                                                  itemCount: 5,
-                                                  itemSize: 20.sp,
-                                                  itemPadding:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: 1),
-                                                  itemBuilder: (context, _) =>
-                                                      Icon(
-                                                        Icons.star,
-                                                        color: Colors.amber,
-                                                      ),
-                                                  onRatingUpdate: (rating) async{
-                                                    await rateProduct(ProductGetxController.to.products[index].id/*products[index].id*/, rating);
-                                                    setState(() {});
-                                                  },
-                                                ),
-                                                // Row(
-                                                //   children: [
-                                                //     Icon(
-                                                //       Icons.star,
-                                                //       color: Colors.grey,
-                                                //       size: 18,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 0.8.w,
-                                                //     ),
-                                                //     Icon(
-                                                //       Icons.star,
-                                                //       color: Colors.grey,
-                                                //       size: 18.w,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 0.8.w,
-                                                //     ),
-                                                //     Icon(
-                                                //       Icons.star,
-                                                //       color: Colors.grey,
-                                                //       size: 18,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 0.8.w,
-                                                //     ),
-                                                //     Icon(
-                                                //       Icons.star,
-                                                //       color: Colors.grey,
-                                                //       size: 18,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 0.8.w,
-                                                //     ),
-                                                //     Icon(
-                                                //       Icons.star,
-                                                //       color: Colors.grey,
-                                                //       size: 18,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 0.8.w,
-                                                //     ),
-                                                //   ],
-                                                // ),
-                                              ],
-                                            )
-                                          ],
+                                                    style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            229, 69, 0, 0.81),
+                                                        fontWeight:
+                                                        FontWeight.w600,
+                                                        fontSize: 22.sp),
+                                                  ),
+                                                ],
+                                              ),
+
+                                              // SizedBox(
+                                              //   height: 14.h,
+                                              // ),
+                                              // Row(
+                                              //   // mainAxisAlignment:
+                                              //   // MainAxisAlignment
+                                              //   //     .spaceBetween,
+                                              //   children: [
+                                              //     Text(
+                                              //       // '\$20',
+                                              //       '\$' +
+                                              //           // products[index].price.toString(),
+                                              //           ProductGetxController.to.products[index].price.toString(),
+                                              //
+                                              //
+                                              //       style: TextStyle(
+                                              //           color: Color.fromRGBO(
+                                              //               229, 69, 0, 0.81),
+                                              //           fontWeight:
+                                              //           FontWeight.w600,
+                                              //           fontSize: 22.sp),
+                                              //     ),
+                                              //     RatingBar.builder(
+                                              //       initialRating:ProductGetxController.to.products[index].productRate,//FavoriteGetxController.to.productRate(ProductGetxController.to.products[index]),//ProductGetxController.to.products[index].productRate, //products[index].productRate+0.0,
+                                              //       minRating: 0,
+                                              //       direction: Axis.horizontal,
+                                              //       allowHalfRating: true,
+                                              //       itemCount: 5,
+                                              //       itemSize: 20.sp,
+                                              //       itemPadding:
+                                              //       EdgeInsets.symmetric(
+                                              //           horizontal: 1),
+                                              //       itemBuilder: (context, _) =>
+                                              //           Icon(
+                                              //             Icons.star,
+                                              //             color: Colors.amber,
+                                              //           ),
+                                              //       onRatingUpdate: (rating) async{
+                                              //
+                                              //         await rateProduct(/*ProductGetxController.to.products[index]*/ProductGetxController.to.products[index].id, rating);
+                                              //         setState(() {});
+                                              //       },
+                                              //     ),
+                                              //     Row(
+                                              //       children: [
+                                              //         Icon(
+                                              //           Icons.star,
+                                              //           color: Colors.grey,
+                                              //           size: 18,
+                                              //         ),
+                                              //         SizedBox(
+                                              //           width: 0.8.w,
+                                              //         ),
+                                              //         Icon(
+                                              //           Icons.star,
+                                              //           color: Colors.grey,
+                                              //           size: 18.w,
+                                              //         ),
+                                              //         SizedBox(
+                                              //           width: 0.8.w,
+                                              //         ),
+                                              //         Icon(
+                                              //           Icons.star,
+                                              //           color: Colors.grey,
+                                              //           size: 18,
+                                              //         ),
+                                              //         SizedBox(
+                                              //           width: 0.8.w,
+                                              //         ),
+                                              //         Icon(
+                                              //           Icons.star,
+                                              //           color: Colors.grey,
+                                              //           size: 18,
+                                              //         ),
+                                              //         SizedBox(
+                                              //           width: 0.8.w,
+                                              //         ),
+                                              //         Icon(
+                                              //           Icons.star,
+                                              //           color: Colors.grey,
+                                              //           size: 18,
+                                              //         ),
+                                              //         SizedBox(
+                                              //           width: 0.8.w,
+                                              //         ),
+                                              //       ],
+                                              //     ),
+                                              //   ],
+                                              // )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -474,7 +367,7 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
                                             //   isFavorite=!isFavorite;
                                           });
                                         },
-                                        icon: ProductGetxController.to.products[index].isFavorite//FavoriteGetxController.to.isFavorite(ProductGetxController.to.products[index])//
+                                        icon: FavoriteGetxController.to.isFavorite(ProductGetxController.to.products[index])//ProductGetxController.to.products[index].isFavorite
                                             ? Icon(
                                           Icons.favorite,
                                           color: Colors.red,
@@ -485,21 +378,23 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
                                   right: 2.w,
                                 )
                               ]),
-                              onTap: () {
+                              onTap: () async{
                                 print("beforesetState");
                                 print(isFavorite);
-                                // print("product: ${products[index].id}");
-                                // setState(() {
-                                //   isFavorite=!isFavorite;
-                                //   print("After setState:$isFavorite");
-                                // });
-                                Navigator.push(
+                                print("===================================================");
+                                double detailsRate=await Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           ProductDetailsScreen(ProductGetxController.to.products[index].id
                                             /* products[index].id*/),
                                     ));
+                               print("detailsRate:$detailsRate");
+                               setState(() {
+                                  ProductGetxController.to.products[index].isFavorite=FavoriteGetxController.to.isFavorite(ProductGetxController.to.products[index]);
+                                  ProductGetxController.to.products[index].productRate=detailsRate;
+
+                                });
                               });
                         }
                       // children: [
@@ -638,25 +533,26 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
                     );
                   }
                   else{
-                    return Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.warning,
-                            size: 80,
-                            color: Colors.grey.shade400,
-                          ),
-                          Text(
-                            'NO DATA',
-                            style: TextStyle(
-                              color: Colors.grey.shade400,
-                              fontSize: 22,
-                            ),
-                          )
-                        ],
-                      ),
-                    );
+                    return NoData(context);
+                    // return Center(
+                    //   child: Column(
+                    //     mainAxisSize: MainAxisSize.min,
+                    //     children: [
+                    //       Icon(
+                    //         Icons.warning,
+                    //         size: 80,
+                    //         color: Colors.grey.shade400,
+                    //       ),
+                    //       Text(
+                    //         'NO DATA',
+                    //         style: TextStyle(
+                    //           color: Colors.grey.shade400,
+                    //           fontSize: 22,
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
+                    // );
                   }
                 // },),
                 // controller.to.loading.value
@@ -1467,6 +1363,17 @@ class _ProductScreenState extends State<ProductScreen> with Helpers {
     }
     showSnackBar(context: context, message: message, error: !(bstatus != null));
   }
+  // Future<void> rateProduct(Product product, double rate) async {
+  //   BaseApi? bstatus = await FavoriteGetxController.to.ChangeRate(product, rate);
+  //   String message;
+  //   if (bstatus != null) {
+  //     message = bstatus.message;
+  //   } else {
+  //     message = 'not don';
+  //   }
+  //   showSnackBar(context: context, message: message, error: !(bstatus != null));
+  // }
+
   Future<void> rateProduct(int productId,double rate) async {
     BaseApi? bstatus = await RateApiController().RateProduct(productId, rate);
     String message="";

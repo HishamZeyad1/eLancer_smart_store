@@ -20,35 +20,53 @@ mixin Helpers {
   Widget Loading() {
     return Center(
       child: Container(
-          width: 200.w, height: 200.h, child: CircularProgressIndicator()),
+          width: 120.w, height: 120.h, child: CircularProgressIndicator()),
     );
   }
 
   Widget NoData(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height/2.h,
-      width:MediaQuery.of(context).size.width.w,
+      height: 500.h,
       child: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               Icons.warning,
-              size: 120,
+              size: 80,
               color: Colors.grey.shade400,
             ),
             Text(
               'NO DATA',
               style: TextStyle(
                 color: Colors.grey.shade400,
-                fontSize: 30,
+                fontSize: 22,
               ),
             )
           ],
         ),
       ),
     );
+    // return Center(
+    //   child: Column(
+    //     mainAxisSize: MainAxisSize.max,
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     // crossAxisAlignment: CrossAxisAlignment.center,
+    //     children: [
+    //       Icon(
+    //         Icons.warning,
+    //         size: 120,
+    //         color: Colors.grey.shade400,
+    //       ),
+    //       Text(
+    //         'NO DATA',
+    //         style: TextStyle(
+    //           color: Colors.grey.shade400,
+    //           fontSize: 30,
+    //         ),
+    //       )
+    //     ],
+    //   ),
+    // );
   }
 }

@@ -24,7 +24,7 @@ class ProductGetxController extends GetxController {
 
   @override
   void onInit() {
-    readProduct(this.id.value);
+    // readProduct(this.id.value);
     super.onInit();
   }
   // Future<void> readFavorite() async {

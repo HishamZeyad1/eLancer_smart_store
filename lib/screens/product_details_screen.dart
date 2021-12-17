@@ -17,6 +17,7 @@ import 'package:smart_store/models/product_details.dart';
 import 'package:smart_store/models/slider.dart';
 import 'package:smart_store/screens/Home/image_slider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class ProductDetailsScreen extends StatefulWidget {
   // const ProductDetailsScreen({Key? key}) : super(key: key);
   late int id;
@@ -55,7 +56,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    String lang=LanguageGetxController.to.language.value;
+    String lang = LanguageGetxController.to.language.value;
 
     /*return Scaffold(
       // extendBodyBehindAppBar: true,
@@ -89,12 +90,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
           builder: (context, snapshot) {
             print("===============snapshot.data========================");
             // print(snapshot.data!);
-            print(snapshot.hasData /*&& snapshot.data! !=null*/);
+            // print(snapshot.hasData && snapshot.data! !=null);
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
-                  width: double.infinity,
-                  height: 600.h,
-                  child: CircularProgressIndicator());
+              // return Container(
+              //     width: double.infinity,
+              //     height: 600.h,
+              //     child: CircularProgressIndicator());
+              return Loading();
             } else if (snapshot.hasData && snapshot.data! != null) {
               productsDetails = snapshot.data!;
 
@@ -102,11 +104,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
               isFavorite = productsDetails!.product.isFavorite;
               print("==========isFavorite===============");
               print(isFavorite);
-              sliders=productsDetails!.images.map((e) => Sliders(e.id, e.objectId, e.url, e.imageUrl)).toList();
+              sliders = productsDetails!.images
+                  .map((e) => Sliders(e.id, e.objectId, e.url, e.imageUrl))
+                  .toList();
               return Scaffold(
                 appBar: AppBar(
                   leading: IconButton(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.pop(
+                          context, productsDetails!.product.productRate),
                       icon: Icon(
                         Icons.arrow_back_ios,
                         color: Colors.grey,
@@ -126,9 +131,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                     IconButton(
                       onPressed: () async {
                         await changeFavorite(productsDetails!);
-                        setState(() { });
+                        setState(() {});
                       },
-                      icon: productsDetails!.product.isFavorite//isFavorite
+                      icon: FavoriteGetxController.to.isFavorite(productsDetails!
+                              .product) //productsDetails!.product.isFavorite//isFavorite
                           ? Icon(
                               Icons.favorite,
                               color: Colors.red,
@@ -136,7 +142,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                           : Icon(
                               Icons.favorite_outline,
                               color: Colors.grey,
-                            ),enableFeedback: false,
+                            ),
+                      enableFeedback: false,
                     ),
                   ],
                 ),
@@ -165,7 +172,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                     //   ),
                     // ),
 
-                    imageSlider(sliders,scale: 1.2,disable:true),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 4.w,),
+                    child: imageSlider(sliders, scale: 1.2, disable: true),
+                    ),
 
                     ListView(
                       shrinkWrap: true,
@@ -178,8 +188,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                           children: [
                             Text(
                               // 'Chequered overshirt',
-                              lang=='en'?
-                              productsDetails!.product.nameEn:productsDetails!.product.nameAr,
+                              lang == 'en'
+                                  ? productsDetails!.product.nameEn
+                                  : productsDetails!.product.nameAr,
                               style: TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600),
                             ),
@@ -274,7 +285,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                               Container(
                                 child: RatingBar.builder(
                                   initialRating:
-                                      productsDetails!.product.productRate + 0.0,
+                                      // FavoriteGetxController.to.productRate(productsDetails!.product),
+                                      productsDetails!.product.productRate +
+                                          0.0,
                                   minRating: 0,
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
@@ -286,10 +299,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                                     Icons.star,
                                     color: Colors.amber,
                                   ),
-                                  onRatingUpdate:(value) => null, /*(rating) *//*async*//* {
-                                    // await rateProduct(productsDetails!.product.id, rating);
+                                  onRatingUpdate: (value) async {
+                                    await rateProduct(
+                                        productsDetails!.product.id, value);
                                     // setState(() {});
-                                  },*/
+                                  },
                                 ),
                               ),
                             ]),
@@ -344,7 +358,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                         // ),
                         Text(
                           // "Description",
-                            AppLocalizations.of(context)!.description,
+                          AppLocalizations.of(context)!.description,
                           style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w600,
@@ -368,7 +382,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                                 color: Color.fromRGBO(151, 151, 151, 1)),
                             children: <TextSpan>[
                               TextSpan(
-                                text: lang=='en'?productsDetails!.product.infoEn:productsDetails!.product.infoAr,
+                                text: lang == 'en'
+                                    ? productsDetails!.product.infoEn
+                                    : productsDetails!.product.infoAr,
                                 // "hequered overshirt with snap-button fastening, front pockets and long sleeves....",
                               ),
                               // TextSpan(
@@ -398,7 +414,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                           style: ElevatedButton.styleFrom(
                               primary: Color.fromRGBO(229, 69, 0, 0.81),
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 129.w, vertical: 18.h),
+                                  horizontal: 110.w, vertical: 18.h),
                               // shape:RoundedRectangle(borderRaduis:BorderRadius.all(Radius.circular(10)),),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20))),
@@ -409,12 +425,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                 ),
               );
             } else {
-              return Center(
-                child: Container(
-                    width: double.infinity,
-                    height: 600.h,
-                    child: Text("No Data")),
-              );
+              // return Center(
+              //   child: Container(
+              //       width: double.infinity,
+              //       height: 600.h,
+              //       child: Text("No Data")),
+              // );
+              return NoData(context);
             }
           }),
     )
@@ -423,9 +440,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
         ;
   }
 
+  // Future<void> rateProduct(Product product, double rate) async {
+  //   BaseApi? bstatus = await FavoriteGetxController.to.ChangeRate(product, rate);
+  //   String message;
+  //   if (bstatus != null) {
+  //     message = bstatus.message;
+  //   } else {
+  //     message = 'not don';
+  //   }
+  //   showSnackBar(context: context, message: message, error: !(bstatus != null));
+  // }
   Future<void> rateProduct(int productId, double rate) async {
     BaseApi? bstatus = await RateApiController().RateProduct(productId, rate);
-    String message;
+    String message = "";
     if (bstatus != null) {
       message = bstatus.message;
     } else {
@@ -435,7 +462,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
   }
 
   Future<void> changeFavorite(ProductDetails productDetails) async {
-    Product p = productDetails.product; //Product(id: product.product.id, nameEn: product.product.nameEn, nameAr: product.product.nameAr, infoEn: product.product.infoEn, infoAr: product.product.infoAr, price: product.product.price, quantity: product.product.quantity, overalRate: product.product.overalRate, subCategoryId: product.product.subCategoryId, productRate: product.product.productRate, offerPrice: product.product.offerPrice, isFavorite: product.product.isFavorite, imageUrl: product.product.imageUrl);
+    Product p = productDetails
+        .product; //Product(id: product.product.id, nameEn: product.product.nameEn, nameAr: product.product.nameAr, infoEn: product.product.infoEn, infoAr: product.product.infoAr, price: product.product.price, quantity: product.product.quantity, overalRate: product.product.overalRate, subCategoryId: product.product.subCategoryId, productRate: product.product.productRate, offerPrice: product.product.offerPrice, isFavorite: product.product.isFavorite, imageUrl: product.product.imageUrl);
     BaseApi? bstatus = await FavoriteGetxController.to.ChangeFavorite(p);
     // BaseApi? newRowId = await FavoriteApiController().favoriteProduct(productDetails.product);
 
@@ -443,7 +471,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     if (bstatus != null) {
       message = bstatus.message;
       print("1-onclick->Action");
-      ProductGetxController.to.ChangeProductFavorite(productDetails.product);
+      // ProductGetxController.to.ChangeProductFavorite(productDetails.product);
       print("=====================");
       printData();
       print("2-complete->Action");
@@ -455,8 +483,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
     }
     showSnackBar(context: context, message: message, error: !(bstatus != null));
   }
-  void printData(){
-    for(Product i in ProductGetxController.to.products.value){
+
+  void printData() {
+    for (Product i in ProductGetxController.to.products.value) {
       print(i.id);
       print(i.isFavorite);
     }

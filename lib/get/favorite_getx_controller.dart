@@ -12,7 +12,6 @@ import 'package:smart_store/prefs/shared_pref_controller.dart';
 
 class FavoriteGetxController extends GetxController {
   RxList<Favorite> favorite = <Favorite>[].obs;
-
   RxBool loading = false.obs;
   final FavoriteApiController _favoriteApiController = FavoriteApiController();
 
@@ -106,7 +105,6 @@ class FavoriteGetxController extends GetxController {
           product.isFavorite==false?favorite.add(favorite1):favorite.removeWhere((element) => element.product.id==product.id);
           product.isFavorite==false?product.isFavorite=true:product.isFavorite=false;
           // ProductGetxController.to.ChangeProductFavorite(product);
-
       return newRowId;
     }
   //   if (newRowId = true) {
@@ -137,6 +135,48 @@ class FavoriteGetxController extends GetxController {
     return null;
   }
 
+  Future<BaseApi?> ChangeRate(Product product,double rate) async {
+    BaseApi? newRowId = await RateApiController().RateProduct(product.id, rate);
+
+    if (newRowId !=null) {
+      print("=================Favorite================");
+      Favorite favorite1 = Favorite();
+      favorite1.product = product;
+      favorite1.pivot =Pivot(userId: SharedPrefController().id, productId: product.id);
+      // product.isFavorite==false?favorite.add(favorite1):favorite.removeWhere((element) => element.product.id==product.id);
+      product.productRate=rate;
+      // product.isFavorite==false?product.isFavorite=true:product.isFavorite=false;
+      // ProductGetxController.to.ChangeProductFavorite(product);
+      return newRowId;
+    }
+    //   if (newRowId = true) {
+    //     Favorite favorite1 = Favorite();
+    //     favorite1.product = product;
+    //     favorite1.pivot =
+    //         Pivot(userId: SharedPrefController().id, productId: product.id);
+    //     product.isFavorite ? favorite.add(favorite1) : favorite.map((element) {
+    //       // if
+    //       // (element.product.id==product.id)
+    //       //   // favorite.product.remove(favorite.id))
+    //       //   // favorite.removeWhere((element) => false)
+    //       //   for(int i in favorite.value) {
+    //       //     favorite.removeAt(i);
+    //       //   }
+    //     }
+    //     }
+    //   // favorite.map((p0){if(p0.product.id==id){favorite.add(p0);}});
+    //   return
+    //   true;
+    // }
+    // if (newRowId != 0) {
+    //   contact.id = newRowId;
+    //   contacts.add(contact);
+    //   // notifyListeners();
+    //   // update();
+    // }
+    return null;
+  }
+
   bool isFavorite(Product product){
     for(Favorite i in favorite.value){
       if(i.product.id==product.id){
@@ -144,6 +184,15 @@ class FavoriteGetxController extends GetxController {
       }
     }
     return false;
+  }
+
+  double productRate(Product product){
+    for(Favorite i in favorite.value){
+      if(i.product.id==product.id){
+        return i.product.productRate;
+      }
+    }
+    return 0;
   }
 
 }

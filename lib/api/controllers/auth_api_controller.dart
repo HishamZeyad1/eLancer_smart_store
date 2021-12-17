@@ -24,8 +24,12 @@ class AuthApiController with Helpers {
       HttpHeaders.acceptHeader: 'application/json',
       'lang': SharedPrefController().language
     });
+    print("=================before register==================");
+    print("=================statusCode:${response.statusCode}==================");
     if (response.statusCode == 200 || response.statusCode == 201) {
       var jsonData = jsonDecode(response.body);
+      print("================= after statusCode:${response.statusCode}==================");
+
       print("code:" + jsonDecode(response.body)['code'].toString());
       print(jsonDecode(response.body)['message']);
 
@@ -100,7 +104,7 @@ class AuthApiController with Helpers {
       //TODO: SHARED PREFERENCES - SAVE LOGGED IN USER DATA!!
       var jsonObject = jsonDecode(response.body)['data'];
       User user = User.fromJson(jsonObject);
-      SharedPrefController().save(user: user);
+      await SharedPrefController().save(user: user);
       showSnackBar(
         context: context,
         message: jsonDecode(response.body)['message'],

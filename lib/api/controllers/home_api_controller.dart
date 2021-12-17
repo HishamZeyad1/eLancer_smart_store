@@ -29,9 +29,11 @@ class HomeApiController with Helpers {
       response = await http.get(url, headers: {
         // HttpHeaders.authorizationHeader: SharedPrefController().token,
         // HttpHeaders.authorizationHeader: "Bearer ${SharedPrefController().token}",
+        // HttpHeaders.acceptHeader: 'application/json',
+        'Accept': 'application/json',
         'Authorization':'$token',
-        HttpHeaders.acceptHeader: 'application/json',
-        HttpHeaders.acceptLanguageHeader:SharedPrefController().language
+        'lang': SharedPrefController().language
+        // HttpHeaders.acceptLanguageHeader:SharedPrefController().language
       });
     // response = await http.get(url, headers: {
     //   // 'Content-Type': 'application/json',
